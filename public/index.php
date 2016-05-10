@@ -2,7 +2,7 @@
 
 include_once('../bootstrap.php');
 
-use Modules\Contact\ContactMapperAPI;
+use Modules\Contact\Mappers\ContactMapperAPI;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Soap\AutoDiscover;

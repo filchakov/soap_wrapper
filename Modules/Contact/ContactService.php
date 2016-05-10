@@ -2,8 +2,7 @@
 
 namespace Modules\Contact;
 
-
-use Contact;
+use Modules\Contact\Mappers\ContactMapperAPI;
 use Modules\LibreryModule\Collection;
 
 class ContactService
@@ -31,7 +30,8 @@ class ContactService
         foreach($result as $key => $item){
             $collection->addItem($this->getMapper()->buildObject($item), $key);
         }
-        return $collection;
+
+        return $collection->get();
     }
 
     /**

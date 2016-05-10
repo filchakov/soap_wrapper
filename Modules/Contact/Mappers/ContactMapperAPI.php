@@ -1,8 +1,9 @@
 <?php
 
-namespace Modules\Contact;
+namespace Modules\Contact\Mappers;
 
 use Modules\Contact\Models\Contact;
+use Modules\Contact\Models\ContactNullObject;
 use Modules\Entity\EntityMapperAPI;
 
 class ContactMapperAPI extends EntityMapperAPI

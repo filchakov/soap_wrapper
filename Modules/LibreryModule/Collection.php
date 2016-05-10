@@ -41,4 +41,8 @@ class Collection
         }
     }
 
+    public function get(){
+        return $this->items;
+    }
+
 }
