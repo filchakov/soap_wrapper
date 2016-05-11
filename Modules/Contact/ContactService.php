@@ -2,7 +2,7 @@
 
 namespace Modules\Contact;
 
-use Modules\Contact\Mappers\ContactMapperAPI;
+use Modules\Contact\Mappers\ContactMapper;
 use Modules\LibreryModule\Collection;
 
 class ContactService
@@ -12,22 +12,22 @@ class ContactService
 
     /**
      * ContactService constructor.
-     * @param null $client
      */
     public function __construct()
     {
-        $this->setMapper(new ContactMapperAPI());
+        $this->setMapper(new ContactMapper());
     }
 
     /**
      * Show all contacts
      * @return array|Collection
      */
-    public function show(){
+    public function show()
+    {
         $result = $this->getMapper()->show();
 
         $collection = new Collection();
-        foreach($result as $key => $item){
+        foreach ($result as $key => $item) {
             $collection->addItem($this->getMapper()->buildObject($item), $key);
         }
 
@@ -39,7 +39,8 @@ class ContactService
      * @param integer $id
      * @return mixed|\Psr\Http\Message\ResponseInterface
      */
-    public function get(integer $id){
+    public function get(integer $id)
+    {
         return $this->getMapper()->get($id);
     }
 
@@ -51,7 +52,8 @@ class ContactService
      * @param string $email
      * @return mixed|\Psr\Http\Message\ResponseInterface
      */
-    public function insert(string $firstName, string $lastName, string $phoneNumber, string $email){
+    public function insert(string $firstName, string $lastName, string $phoneNumber, string $email)
+    {
         return $this->getMapper()->insert(compact('firstName', 'lastName', 'phoneNumber', 'email'));
     }
 
@@ -64,7 +66,8 @@ class ContactService
      * @param string $email
      * @return mixed|\Psr\Http\Message\ResponseInterface
      */
-    public function update(integer $id, string $firstName, string $lastName, string $phoneNumber, string $email){
+    public function update(integer $id, string $firstName, string $lastName, string $phoneNumber, string $email)
+    {
         return $this->getMapper()->update($id, compact('firstName', 'lastName', 'phoneNumber', 'email'));
     }
 
@@ -73,13 +76,14 @@ class ContactService
      * @param integer $id
      * @return mixed|\Psr\Http\Message\ResponseInterface
      */
-    public function delete(integer $id){
+    public function delete(integer $id)
+    {
         return $this->getMapper()->delete($id);
     }
 
 
     /**
-     * @return ContactMapperAPI
+     * @return ContactMapper
      */
     private function getMapper()
     {

@@ -4,7 +4,7 @@ namespace Modules\Entity;
 
 use Psr\Http\Message\ResponseInterface;
 
-abstract class EntityMapperAPI implements IEntityAPI{
+abstract class EntityMapper implements IEntityAPI{
 
     /**
      * @var \GuzzleHttp\Client
@@ -17,7 +17,7 @@ abstract class EntityMapperAPI implements IEntityAPI{
     private $url = null;
 
     /**
-     * EntityMapperAPI constructor.
+     * EntityMapper constructor.
      */
     public function __construct($url)
     {

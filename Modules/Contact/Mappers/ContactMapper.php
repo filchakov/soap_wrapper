@@ -4,9 +4,9 @@ namespace Modules\Contact\Mappers;
 
 use Modules\Contact\Models\Contact;
 use Modules\Contact\Models\ContactNullObject;
-use Modules\Entity\EntityMapperAPI;
+use Modules\Entity\EntityMapper;
 
-class ContactMapperAPI extends EntityMapperAPI
+class ContactMapper extends EntityMapper
 {
     const URL = 'contacts';
 
