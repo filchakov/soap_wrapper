@@ -15,27 +15,27 @@ class Contact implements ArraySerializable
     /**
      * @var int
      */
-    private $id = 0;
+    public $id = 0;
 
     /**
      * @var string
      */
-    private $firstName = '';
+    public $firstName = '';
 
     /**
      * @var string
      */
-    private $lastName = '';
+    public $lastName = '';
 
     /**
      * @var string
      */
-    private $phoneNumber = '';
+    public $phoneNumber = '';
 
     /**
      * @var string
      */
-    private $email = '';
+    public $email = '';
 
     /**
      * Contact constructor.
@@ -83,7 +83,7 @@ class Contact implements ArraySerializable
      */
     private function setId($id)
     {
-        $this->id = $id;
+        $this->id = (int)$id;
         return $this;
     }
 

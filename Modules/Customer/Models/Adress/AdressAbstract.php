@@ -1,10 +1,8 @@
 <?php
 
-namespace Modules\Location\Models;
+namespace Modules\Customer\Models\Adress;
 
-use Modules\LibreryModule\ArraySerializable;
-
-class Location implements ArraySerializable
+abstract class AdressAbstract
 {
     const ID = 'id';
     const ADDRESS = 'address';
@@ -13,7 +11,7 @@ class Location implements ArraySerializable
     const STATE = 'state';
     const ZIP_CODE = 'zipCode';
     const COUNTRY = 'country';
-    const LONGITUDE = 'longitude';
+    const LONGTITUDE = 'longitude';
     const LATITUDE = 'latitude';
 
     /**
@@ -54,7 +52,7 @@ class Location implements ArraySerializable
     /**
      * @var float
      */
-    public $longitude = 0.0;
+    public $longtitude = 0.0;
 
     /**
      * @var float
@@ -62,7 +60,7 @@ class Location implements ArraySerializable
     public $latitude = 0.0;
 
     /**
-     * Location constructor.
+     * AdressAbstract constructor.
      * @param int $id
      * @param string $address
      * @param string $address2
@@ -70,10 +68,10 @@ class Location implements ArraySerializable
      * @param string $state
      * @param string $zipCode
      * @param string $country
-     * @param float $longitude
+     * @param float $longtitude
      * @param float $latitude
      */
-    public function __construct($id, $address, $address2, $city, $state, $zipCode, $country, $longitude, $latitude)
+    public function __construct($id, $address, $address2, $city, $state, $zipCode, $country, $longtitude, $latitude)
     {
         $this
             ->setId($id)
@@ -83,10 +81,9 @@ class Location implements ArraySerializable
             ->setState($state)
             ->setZipCode($zipCode)
             ->setCountry($country)
-            ->setLongitude($longitude)
+            ->setLongtitude($longtitude)
             ->setLatitude($latitude);
     }
-
 
     /**
      * @return int
@@ -98,7 +95,7 @@ class Location implements ArraySerializable
 
     /**
      * @param int $id
-     * @return Location
+     * @return AdressAbstract
      */
     public function setId($id)
     {
@@ -116,7 +113,7 @@ class Location implements ArraySerializable
 
     /**
      * @param string $address
-     * @return Location
+     * @return AdressAbstract
      */
     public function setAddress($address)
     {
@@ -134,7 +131,7 @@ class Location implements ArraySerializable
 
     /**
      * @param string $address2
-     * @return Location
+     * @return AdressAbstract
      */
     public function setAddress2($address2)
     {
@@ -152,7 +149,7 @@ class Location implements ArraySerializable
 
     /**
      * @param string $city
-     * @return Location
+     * @return AdressAbstract
      */
     public function setCity($city)
     {
@@ -170,7 +167,7 @@ class Location implements ArraySerializable
 
     /**
      * @param string $state
-     * @return Location
+     * @return AdressAbstract
      */
     public function setState($state)
     {
@@ -188,7 +185,7 @@ class Location implements ArraySerializable
 
     /**
      * @param string $zipCode
-     * @return Location
+     * @return AdressAbstract
      */
     public function setZipCode($zipCode)
     {
@@ -206,7 +203,7 @@ class Location implements ArraySerializable
 
     /**
      * @param string $country
-     * @return Location
+     * @return AdressAbstract
      */
     public function setCountry($country)
     {
@@ -217,18 +214,18 @@ class Location implements ArraySerializable
     /**
      * @return float
      */
-    public function getLongitude()
+    public function getLongtitude()
     {
-        return $this->longitude;
+        return $this->longtitude;
     }
 
     /**
-     * @param float $longitude
-     * @return Location
+     * @param float $longtitude
+     * @return AdressAbstract
      */
-    public function setLongitude($longitude)
+    public function setLongtitude($longtitude)
     {
-        $this->longitude = floatval($longitude);
+        $this->longtitude = floatval($longtitude);
         return $this;
     }
 
@@ -242,7 +239,7 @@ class Location implements ArraySerializable
 
     /**
      * @param float $latitude
-     * @return Location
+     * @return AdressAbstract
      */
     public function setLatitude($latitude)
     {
@@ -263,7 +260,7 @@ class Location implements ArraySerializable
             self::STATE => $this->getState(),
             self::ZIP_CODE => $this->getZipCode(),
             self::COUNTRY => $this->getCountry(),
-            self::LONGITUDE => $this->getLongitude(),
+            self::LONGTITUDE => $this->getLongtitude(),
             self::LATITUDE => $this->getLatitude()
         ];
     }

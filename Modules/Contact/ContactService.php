@@ -2,7 +2,11 @@
 
 namespace Modules\Contact;
 
+use Exception;
 use Modules\Contact\Mappers\ContactMapper;
+use Modules\Contact\Models\Contact;
+use Modules\Contact\Models\ContactCollection;
+use Modules\Contact\Models\ContactNullObject;
 use Modules\LibreryModule\Collection;
 
 class ContactService
@@ -20,24 +24,24 @@ class ContactService
 
     /**
      * Show all contacts
-     * @return array|Collection
+     * @return \Modules\Contact\Models\ContactCollection
      */
     public function show()
     {
         $result = $this->getMapper()->show();
 
-        $collection = new Collection();
+        $collection = new ContactCollection();
         foreach ($result as $key => $item) {
             $collection->addItem($this->getMapper()->buildObject($item), $key);
         }
 
-        return $collection->get();
+        return $collection;
     }
 
     /**
      * Show a single contact
      * @param integer $id
-     * @return mixed|\Psr\Http\Message\ResponseInterface
+     * @return \Modules\Contact\Models\Contact
      */
     public function get(integer $id)
     {
@@ -50,11 +54,12 @@ class ContactService
      * @param string $lastName
      * @param string $phoneNumber
      * @param string $email
-     * @return mixed|\Psr\Http\Message\ResponseInterface
+     * @return \Modules\Contact\Models\Contact
      */
     public function insert(string $firstName, string $lastName, string $phoneNumber, string $email)
     {
-        return $this->getMapper()->insert(compact('firstName', 'lastName', 'phoneNumber', 'email'));
+        $contact = new Contact(0, $firstName, $lastName, $phoneNumber, $email);
+        return $this->getMapper()->insert($contact->toArray());
     }
 
     /**
@@ -64,17 +69,18 @@ class ContactService
      * @param string $lastName
      * @param string $phoneNumber
      * @param string $email
-     * @return mixed|\Psr\Http\Message\ResponseInterface
+     * @return \Modules\Contact\Models\Contact
      */
     public function update(integer $id, string $firstName, string $lastName, string $phoneNumber, string $email)
     {
-        return $this->getMapper()->update($id, compact('firstName', 'lastName', 'phoneNumber', 'email'));
+        $contact = new Contact($id, $firstName, $lastName, $phoneNumber, $email);
+        return $this->getMapper()->update($id, $contact->toArray());
     }
 
     /**
      * Delete contact
      * @param integer $id
-     * @return mixed|\Psr\Http\Message\ResponseInterface
+     * @return bool
      */
     public function delete(integer $id)
     {

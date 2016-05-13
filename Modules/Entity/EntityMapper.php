@@ -22,9 +22,7 @@ abstract class EntityMapper implements IEntityAPI{
     public function __construct($url)
     {
         $this
-            ->setClient(new \GuzzleHttp\Client([
-                'base_uri' => REST_SERVER
-            ]))
+            ->setClient()
             ->setUrl($url);
     }
 
@@ -54,7 +52,7 @@ abstract class EntityMapper implements IEntityAPI{
      */
     function insert($options)
     {
-        return $this->sendRequest('GET', $options);
+        return $this->sendRequest('POST', $options);
     }
 
     /**
@@ -65,7 +63,7 @@ abstract class EntityMapper implements IEntityAPI{
      */
     function update($id, $options)
     {
-        return $this->sendRequest('DELETE', $this->buildParams($id, $options));
+        return $this->sendRequest('PUT', $options);
     }
 
 
@@ -85,14 +83,30 @@ abstract class EntityMapper implements IEntityAPI{
      * @return mixed|ResponseInterface
      */
     private function sendRequest($type, $options = []){
+        error_reporting(E_ALL);
 
+
+        if(isset($options['id']) && $options['id'] == 0){
+            unset($options['id']);
+        }
         $url = $this->getUrl() . (!empty($options['id'])? '/'.$options['id'] : '');
 
-        return json_decode($this->getClient()->request($type, $url, $options)->getBody()->getContents(), 1);
+        $response['body'] = $options;
+
+
+        $resp = $this->buildOptions($type, $options, $url);
+
+        $result = json_decode($resp, 1);
+
+        if(isset($result['error'])){
+            new \Exception($result['error']);
+        }
+
+        return $result;
     }
 
     /**
-     * @return \GuzzleHttp\Client
+     * @return resource a cURL handle on success, false on errors.
      */
     private function getClient()
     {
@@ -100,12 +114,11 @@ abstract class EntityMapper implements IEntityAPI{
     }
 
     /**
-     * @param \GuzzleHttp\Client $client
      * @return $this
      */
-    private function setClient(\GuzzleHttp\Client $client)
+    private function setClient()
     {
-        $this->client = $client;
+        $this->client = curl_init();
         return $this;
     }
 
@@ -143,5 +156,44 @@ abstract class EntityMapper implements IEntityAPI{
      * @return mixed
      */
     abstract protected function buildObject(array $objectData);
+
+    /**
+     * @param $type
+     * @param $options
+     * @param $url
+     * @return mixed
+     */
+    private function buildOptions($type, $options, $url)
+    {
+        $curl = $this->getClient();
+
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_URL, REST_SERVER . $url);
+
+        switch ($type) {
+            case "GET":
+                curl_setopt($curl, CURLOPT_HTTPGET, 1);
+                curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 15);
+                break;
+            case "POST":
+                curl_setopt($curl, CURLOPT_POST, 1);
+                curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($options));
+                break;
+            case "PUT":
+                curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PUT');
+                curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($options));
+                break;
+            case "DELETE":
+                curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "DELETE");
+                break;
+        }
+
+        $resp = curl_exec($curl);
+
+        curl_close($curl);
+
+        return $resp;
+    }
 
 }

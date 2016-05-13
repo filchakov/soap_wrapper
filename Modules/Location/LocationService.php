@@ -4,6 +4,8 @@ namespace Modules\Location;
 
 use Modules\Location\Mappers\LocationMapper;
 use Modules\LibreryModule\Collection;
+use Modules\Location\Models\Location;
+use Modules\Location\Models\LocationCollection;
 
 class LocationService
 {
@@ -20,24 +22,24 @@ class LocationService
 
     /**
      * Show all locations
-     * @return array|Collection
+     * @return \Modules\Location\Models\LocationCollection
      */
     public function show()
     {
         $result = $this->getMapper()->show();
 
-        $collection = new Collection();
+        $collection = new LocationCollection();
         foreach ($result as $key => $item) {
             $collection->addItem($this->getMapper()->buildObject($item), $key);
         }
 
-        return $collection->get();
+        return $collection;
     }
 
     /**
      * Show a single location
      * @param integer $id
-     * @return mixed|\Psr\Http\Message\ResponseInterface
+     * @return \Modules\Location\Models\Location
      */
     public function get(integer $id)
     {
@@ -54,11 +56,12 @@ class LocationService
      * @param string $country
      * @param string $longitude
      * @param string $latitude
-     * @return mixed|\Psr\Http\Message\ResponseInterface
+     * @return \Modules\Location\Models\Location
      */
-    public function insert(string $address, string $address2, string $city, string $state, string $zipCode, string $country, string $longitude, string $latitude)
+    public function insert(string $address, string $address2, string $city, string $state, string $zipCode, string $country, float $longitude, float $latitude)
     {
-        return $this->getMapper()->insert(compact('address', 'address2', 'city', 'state', 'zipCode', 'country', 'longitude', 'latitude'));
+        $location = new Location(0, $address, $address2, $city, $state, $zipCode, $country, $longitude, $latitude);
+        return $this->getMapper()->insert($location->toArray());
     }
 
     /**
@@ -72,17 +75,18 @@ class LocationService
      * @param string $country
      * @param string $longitude
      * @param string $latitude
-     * @return bool
+     * @return \Modules\Location\Models\Location
      */
     public function update(integer $id, string $address, string $address2, string $city, string $state, string $zipCode, string $country, string $longitude, string $latitude)
     {
-        return $this->getMapper()->update($id, compact('address', 'address2', 'city', 'state', 'zipCode', 'country', 'longitude', 'latitude'));
+        $location = new Location($id, $address, $address2, $city, $state, $zipCode, $country, $longitude, $latitude);
+        return $this->getMapper()->update($id, $location->toArray());
     }
 
     /**
      * Delete location
      * @param integer $id
-     * @return mixed|\Psr\Http\Message\ResponseInterface
+     * @return bool
      */
     public function delete(integer $id)
     {

@@ -33,7 +33,6 @@
         "psr/http-message": "^1.0",
         "nikic/fast-route": "^1.0",
         "container-interop/container-interop": "^1.1",
-        "guzzlehttp/guzzle": "~6.0",
         "zendframework/zend-soap": "2.4.2"
     },
     "require-dev": {
