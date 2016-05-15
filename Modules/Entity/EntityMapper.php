@@ -6,9 +6,6 @@ use Psr\Http\Message\ResponseInterface;
 
 abstract class EntityMapper implements IEntityAPI{
 
-    /**
-     * @var \GuzzleHttp\Client
-     */
     private $client = null;
 
     /**
@@ -166,26 +163,32 @@ abstract class EntityMapper implements IEntityAPI{
     private function buildOptions($type, $options, $url)
     {
         $curl = $this->getClient();
+        $options = json_decode(json_encode($options), 1);
 
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
         curl_setopt($curl, CURLOPT_URL, REST_SERVER . $url);
 
         switch ($type) {
             case "GET":
                 curl_setopt($curl, CURLOPT_HTTPGET, 1);
                 curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 15);
+                curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=utf-8'));
+
                 break;
             case "POST":
                 curl_setopt($curl, CURLOPT_POST, 1);
-                curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($options));
+                curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($options));
+                curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=utf-8'));
                 break;
             case "PUT":
                 curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PUT');
-                curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($options));
+                curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($options));
+                curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=utf-8'));
                 break;
             case "DELETE":
                 curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "DELETE");
+                curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=utf-8'));
                 break;
         }
 

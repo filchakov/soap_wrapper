@@ -47,7 +47,7 @@ class CustomerService
 
 
     /**
-     * Show a single location
+     * Show a single customer
      * @param integer $id
      * @return \Modules\Customer\Models\CustomerAdress
      */

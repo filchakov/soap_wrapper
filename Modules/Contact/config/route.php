@@ -1,6 +1,5 @@
 <?php
 
-use GuzzleHttp\Stream\Stream;
 use Zend\Soap\AutoDiscover;
 use Modules\Contact\Mappers\ContactMapper;
 use Psr\Http\Message\ResponseInterface;
@@ -17,7 +16,7 @@ $app->get('/contacts.wsdl', function(ServerRequestInterface $request, ResponseIn
         ->setUri(WEBSERVICE_URL . ContactMapper::URL);
 
     header('Content-type: application/xml; charset=utf-8');
-    echo Stream::factory($autodiscover->toXml());
+    echo $autodiscover->toXml();
     die;
 });
 

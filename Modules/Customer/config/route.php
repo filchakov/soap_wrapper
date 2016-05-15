@@ -3,8 +3,6 @@
 use Modules\Customer\Mappers\CustomerAdressMapper;
 use Zend\Soap\AutoDiscover;
 
-use GuzzleHttp\Stream\Stream;
-
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Soap\Wsdl\ComplexTypeStrategy\ArrayOfTypeSequence;
@@ -20,7 +18,7 @@ $app->get('/customers.wsdl', function(ServerRequestInterface $request, ResponseI
         ->setUri(WEBSERVICE_URL . CustomerAdressMapper::URL);
 
     header('Content-type: application/xml; charset=utf-8');
-    echo Stream::factory($autodiscover->toXml());
+    echo $autodiscover->toXml();
     die;
 });
 

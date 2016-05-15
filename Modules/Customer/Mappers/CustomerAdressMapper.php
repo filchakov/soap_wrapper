@@ -40,7 +40,7 @@ class CustomerAdressMapper extends EntityMapper
             $objectData[CustomerAdress::SHIPPING][Shipping::STATE],
             $objectData[CustomerAdress::SHIPPING][Shipping::ZIP_CODE],
             $objectData[CustomerAdress::SHIPPING][Shipping::COUNTRY],
-            $objectData[CustomerAdress::SHIPPING][Shipping::LONGTITUDE],
+            $objectData[CustomerAdress::SHIPPING][Shipping::LONGITUDE],
             $objectData[CustomerAdress::SHIPPING][Shipping::LATITUDE]
         );
 
@@ -52,7 +52,7 @@ class CustomerAdressMapper extends EntityMapper
             $objectData[CustomerAdress::BILLING][Billing::STATE],
             $objectData[CustomerAdress::BILLING][Billing::ZIP_CODE],
             $objectData[CustomerAdress::BILLING][Billing::COUNTRY],
-            $objectData[CustomerAdress::BILLING][Billing::LONGTITUDE],
+            $objectData[CustomerAdress::BILLING][Billing::LONGITUDE],
             $objectData[CustomerAdress::BILLING][Billing::LATITUDE]
         );
 

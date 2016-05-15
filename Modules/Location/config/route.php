@@ -1,6 +1,5 @@
 <?php
 
-use GuzzleHttp\Stream\Stream;
 use Zend\Soap\AutoDiscover;
 use Modules\Location\Mappers\LocationMapper;
 use Psr\Http\Message\ResponseInterface;
@@ -17,7 +16,7 @@ $app->get('/locations.wsdl', function (ServerRequestInterface $request, Response
         ->setUri(WEBSERVICE_URL . LocationMapper::URL);
 
     header('Content-type: application/xml; charset=utf-8');
-    echo Stream::factory($autodiscover->toXml());
+    echo $autodiscover->toXml();
     die;
 });
 

@@ -9,7 +9,8 @@ use Zend\Soap\Server as SoapServer;
 $app->group('/v1', function() use ($app){
     include_once('Modules/Contact/config/route.php');
     include_once('Modules/Location/config/route.php');
-    //include_once('Modules/Customer/config/route.php');
+    include_once('Modules/WorkOrder/config/route.php');
+    include_once('Modules/Customer/config/route.php');
 });
 
 $app->run();

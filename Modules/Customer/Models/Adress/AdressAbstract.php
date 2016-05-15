@@ -11,7 +11,7 @@ abstract class AdressAbstract
     const STATE = 'state';
     const ZIP_CODE = 'zipCode';
     const COUNTRY = 'country';
-    const LONGTITUDE = 'longitude';
+    const LONGITUDE = 'longitude';
     const LATITUDE = 'latitude';
 
     /**
@@ -52,7 +52,7 @@ abstract class AdressAbstract
     /**
      * @var float
      */
-    public $longtitude = 0.0;
+    public $longitude = 0.0;
 
     /**
      * @var float
@@ -68,10 +68,10 @@ abstract class AdressAbstract
      * @param string $state
      * @param string $zipCode
      * @param string $country
-     * @param float $longtitude
+     * @param float $longitude
      * @param float $latitude
      */
-    public function __construct($id, $address, $address2, $city, $state, $zipCode, $country, $longtitude, $latitude)
+    public function __construct($id, $address, $address2, $city, $state, $zipCode, $country, $longitude, $latitude)
     {
         $this
             ->setId($id)
@@ -81,7 +81,7 @@ abstract class AdressAbstract
             ->setState($state)
             ->setZipCode($zipCode)
             ->setCountry($country)
-            ->setLongtitude($longtitude)
+            ->setLongitude($longitude)
             ->setLatitude($latitude);
     }
 
@@ -214,18 +214,18 @@ abstract class AdressAbstract
     /**
      * @return float
      */
-    public function getLongtitude()
+    public function getLongitude()
     {
-        return $this->longtitude;
+        return $this->longitude;
     }
 
     /**
-     * @param float $longtitude
+     * @param float $longitude
      * @return AdressAbstract
      */
-    public function setLongtitude($longtitude)
+    public function setLongitude($longitude)
     {
-        $this->longtitude = floatval($longtitude);
+        $this->longitude = floatval($longitude);
         return $this;
     }
 
@@ -260,7 +260,7 @@ abstract class AdressAbstract
             self::STATE => $this->getState(),
             self::ZIP_CODE => $this->getZipCode(),
             self::COUNTRY => $this->getCountry(),
-            self::LONGTITUDE => $this->getLongtitude(),
+            self::LONGITUDE => $this->getLongitude(),
             self::LATITUDE => $this->getLatitude()
         ];
     }
