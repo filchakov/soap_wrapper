@@ -14,7 +14,6 @@ $app->get('/customers.wsdl', function(ServerRequestInterface $request, ResponseI
     $autodiscover
         ->setClass('Modules\\Customer\\CustomerService')
         ->setServiceName('Customer')
-        ->setBindingStyle(array('style' => 'document'))
         ->setUri(WEBSERVICE_URL . CustomerAdressMapper::URL);
 
     header('Content-type: application/xml; charset=utf-8');

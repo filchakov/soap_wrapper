@@ -82,7 +82,6 @@ abstract class EntityMapper implements IEntityAPI{
     private function sendRequest($type, $options = []){
         error_reporting(E_ALL);
 
-
         if(isset($options['id']) && $options['id'] == 0){
             unset($options['id']);
         }
@@ -167,7 +166,7 @@ abstract class EntityMapper implements IEntityAPI{
 
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
-        curl_setopt($curl, CURLOPT_URL, REST_SERVER . $url);
+        curl_setopt($curl, CURLOPT_URL, REST_SERVER);
 
         switch ($type) {
             case "GET":
@@ -193,7 +192,6 @@ abstract class EntityMapper implements IEntityAPI{
         }
 
         $resp = curl_exec($curl);
-
         curl_close($curl);
 
         return $resp;

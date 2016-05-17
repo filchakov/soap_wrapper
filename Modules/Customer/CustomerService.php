@@ -3,16 +3,9 @@
 namespace Modules\Customer;
 
 
-use Modules\Contact\Models\Contact;
 use Modules\Customer\Mappers\CustomerAdressMapper;
 
-use Modules\Customer\Models\Adress\Billing;
-use Modules\Customer\Models\Adress\Shipping;
-use Modules\Customer\Models\Customer;
-use Modules\Customer\Models\CustomerAdress;
 use Modules\Customer\Models\CustomerAdressCollection;
-use Modules\Customer\Models\CustomerNullObject;
-use Modules\LibreryModule\Collection;
 
 class CustomerService
 {

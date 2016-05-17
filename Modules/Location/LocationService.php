@@ -3,7 +3,7 @@
 namespace Modules\Location;
 
 use Modules\Location\Mappers\LocationMapper;
-use Modules\LibreryModule\Collection;
+
 use Modules\Location\Models\Location;
 use Modules\Location\Models\LocationCollection;
 
