@@ -8,19 +8,12 @@ abstract class AbstractService {
 
     /**
      * Authenticates the SOAP request. (This one is the key to the authentication, it will be called upon the server request)
-     *
      * @param string $accessToken
-     * @param string $secretKey
      * @return boolean
-     * @throws \SoapFault
      */
-    public function Header($accessToken, $secretKey)
+    public function Header($accessToken)
     {
-        if(!empty($accessToken) && !empty($secretKey)) {
-            $this->getMapper()->setAccessToken($accessToken)->setSecretKey($secretKey);
-        } else {
-            throw new \SoapFault("401", EntityMapper::INVALID_CREDENTIALS);
-        }
+        $this->getMapper()->setAccessToken($accessToken);
     }
 
     /**

@@ -21,11 +21,6 @@ abstract class EntityMapper implements IEntityAPI{
     private $accessToken = '';
 
     /**
-     * @var string
-     */
-    private $secretKey = '';
-
-    /**
      * EntityMapper constructor.
      * @param $url
      */
@@ -100,6 +95,8 @@ abstract class EntityMapper implements IEntityAPI{
      */
     private function sendRequest($type, $options = []){
 
+        $this->checkToken();
+
         if(isset($options['id']) && $options['id'] == 0){
             unset($options['id']);
         }
@@ -166,24 +163,6 @@ abstract class EntityMapper implements IEntityAPI{
     }
 
     /**
-     * @return string
-     */
-    public function getSecretKey()
-    {
-        return $this->secretKey;
-    }
-
-    /**
-     * @param string $secretKey
-     * @return $this
-     */
-    public function setSecretKey($secretKey)
-    {
-        $this->secretKey = $secretKey;
-        return $this;
-    }
-
-    /**
      * @param array $objectData
      * @return mixed
      */
@@ -201,7 +180,7 @@ abstract class EntityMapper implements IEntityAPI{
         $options = json_decode(json_encode($options), 1);
 
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curl, CURLOPT_URL, REST_SERVER . $url);
 
         curl_setopt($curl, CURLOPT_HTTPHEADER, $this->getHeaders());
@@ -241,7 +220,7 @@ abstract class EntityMapper implements IEntityAPI{
     {
         return array(
             'Content-Type: application/json; charset=utf-8',
-            'X-Authorization: ' . $this->getAccessToken() . ':' . $this->getSecretKey()
+            'X-Authorization: ' . $this->getAccessToken()
         );
     }
 
@@ -274,6 +253,16 @@ abstract class EntityMapper implements IEntityAPI{
 
         } elseif ($result['result'] == 'Server error') {
             throw new SoapFault((string)$code, $result['result']);
+        }
+    }
+
+    /**
+     * @throws SoapFault
+     */
+    private function checkToken()
+    {
+        if(empty($this->getAccessToken())) {
+            throw new \SoapFault("401", EntityMapper::INVALID_CREDENTIALS);
         }
     }
 
