@@ -7,7 +7,7 @@ use Modules\Customer\Mappers\CustomerAdressMapper;
 
 use Modules\Customer\Models\CustomerAdressCollection;
 
-class CustomerService
+class CustomerService extends \Modules\LibreryModule\AbstractService
 {
 
     private $mapper = null;
@@ -92,7 +92,7 @@ class CustomerService
     /**
      * @return CustomerAdressMapper
      */
-    private function getMapper()
+    protected function getMapper()
     {
         return $this->mapper;
     }
@@ -101,7 +101,7 @@ class CustomerService
      * @param $client
      * @return $this
      */
-    private function setMapper($client)
+    protected function setMapper($client)
     {
         $this->mapper = $client;
         return $this;

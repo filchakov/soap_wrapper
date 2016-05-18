@@ -1,17 +1,29 @@
 <?php
 
-namespace Modules\Entity;
+namespace Modules\LibreryModule\Entity;
 
 use Psr\Http\Message\ResponseInterface;
+use SoapFault;
 
 abstract class EntityMapper implements IEntityAPI{
 
     private $client = null;
+    const INVALID_CREDINTIALS = 'Invalid access token or secret key';
 
     /**
      * @var null
      */
     private $url = null;
+
+    /**
+     * @var string
+     */
+    private $accessToken = '';
+
+    /**
+     * @var string
+     */
+    private $secretKey = '';
 
     /**
      * EntityMapper constructor.
@@ -39,7 +51,11 @@ abstract class EntityMapper implements IEntityAPI{
      */
     function get($id)
     {
-        return $this->sendRequest('GET', ['id' => $id]);
+        if($id > 0){
+            return $this->sendRequest('GET', ['id' => $id]);
+        } else {
+            throw new SoapFault("404", "Not found entity with ID " . $id);
+        }
     }
 
     /**
@@ -80,23 +96,14 @@ abstract class EntityMapper implements IEntityAPI{
      * @return mixed|ResponseInterface
      */
     private function sendRequest($type, $options = []){
-        error_reporting(E_ALL);
 
         if(isset($options['id']) && $options['id'] == 0){
             unset($options['id']);
         }
+
         $url = $this->getUrl() . (!empty($options['id'])? '/'.$options['id'] : '');
 
-        $response['body'] = $options;
-
-
-        $resp = $this->buildOptions($type, $options, $url);
-
-        $result = json_decode($resp, 1);
-
-        if(isset($result['error'])){
-            new \Exception($result['error']);
-        }
+        $result = $this->sendRequestToAPI($type, $options, $url);
 
         return $result;
     }
@@ -147,6 +154,43 @@ abstract class EntityMapper implements IEntityAPI{
         return $this;
     }
 
+
+    /**
+     * @return string
+     */
+    public function getAccessToken()
+    {
+        return $this->accessToken;
+    }
+
+    /**
+     * @param string $accessToken
+     * @return $this
+     */
+    public function setAccessToken($accessToken)
+    {
+        $this->accessToken = $accessToken;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSecretKey()
+    {
+        return $this->secretKey;
+    }
+
+    /**
+     * @param string $secretKey
+     * @return $this
+     */
+    public function setSecretKey($secretKey)
+    {
+        $this->secretKey = $secretKey;
+        return $this;
+    }
+
     /**
      * @param array $objectData
      * @return mixed
@@ -159,42 +203,86 @@ abstract class EntityMapper implements IEntityAPI{
      * @param $url
      * @return mixed
      */
-    private function buildOptions($type, $options, $url)
+    private function sendRequestToAPI($type, $options, $url)
     {
         $curl = $this->getClient();
         $options = json_decode(json_encode($options), 1);
 
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
-        curl_setopt($curl, CURLOPT_URL, REST_SERVER);
+        curl_setopt($curl, CURLOPT_URL, REST_SERVER . $url);
+
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $this->getHeaders());
 
         switch ($type) {
             case "GET":
                 curl_setopt($curl, CURLOPT_HTTPGET, 1);
                 curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 15);
-                curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=utf-8'));
 
                 break;
             case "POST":
                 curl_setopt($curl, CURLOPT_POST, 1);
                 curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($options));
-                curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=utf-8'));
                 break;
             case "PUT":
                 curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PUT');
                 curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($options));
-                curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=utf-8'));
                 break;
             case "DELETE":
                 curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "DELETE");
-                curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=utf-8'));
                 break;
         }
 
-        $resp = curl_exec($curl);
+        $result = json_decode(curl_exec($curl), 1);
+
+        $this->handlerException($result, curl_getinfo($curl));
+
         curl_close($curl);
 
-        return $resp;
+        return $result;
+    }
+
+    /**
+     * @return array
+     */
+    private function getHeaders()
+    {
+        return array(
+            'Content-Type: application/json; charset=utf-8',
+            'X-Athorization: ' . $this->getAccessToken() . ':' . $this->getSecretKey()
+        );
+    }
+
+    /**
+     * @param $result
+     * @param $curl
+     * @throws SoapFault
+     */
+    private function handlerException($result, $curl)
+    {
+        $code = 500;
+
+        if($curl['http_code'] != 200){
+            throw new SoapFault((string)$curl['http_code'], json_encode($result['result']));
+        }
+
+        if (isset($result['error'])) {
+
+            switch ($result['error']) {
+                case 'not found':
+                    $code = 404;
+                    break;
+                case 'You are unauthorized to make this request.':
+                    $code = 401;
+                    $result['error'] = self::INVALID_CREDINTIALS;
+                    break;
+            }
+
+            throw new SoapFault((string)$code, $result['error']);
+
+        } elseif ($result['result'] == 'Server error') {
+            throw new SoapFault((string)$code, $result['result']);
+        }
     }
 
 }

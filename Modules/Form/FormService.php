@@ -7,7 +7,7 @@ use Modules\Form\Mappers\FormMapper;
 use Modules\Form\Models\Form;
 use Modules\Form\Models\FormCollection;
 
-class FormService
+class FormService extends \Modules\LibreryModule\AbstractService
 {
 
     private $mapper = null;
@@ -89,7 +89,7 @@ class FormService
     /**
      * @return FormMapper
      */
-    private function getMapper()
+    protected function getMapper()
     {
         return $this->mapper;
     }
@@ -98,7 +98,7 @@ class FormService
      * @param $client
      * @return $this
      */
-    private function setMapper($client)
+    protected function setMapper($client)
     {
         $this->mapper = $client;
         return $this;

@@ -5,7 +5,7 @@ namespace Modules\WorkOrder\Mappers;
 
 use Modules\Customer\Mappers\CustomerAdressMapper;
 use Modules\Customer\Models\CustomerAdress;
-use Modules\Entity\EntityMapper;
+use Modules\LibreryModule\Entity\EntityMapper;
 use Modules\WorkOrder\Models\Form;
 use Modules\WorkOrder\Models\FormCollection;
 use Modules\WorkOrder\Models\Schedule;

@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\Form\Models;
+namespace Modules\FormEntries\Models;
 
 use Modules\LibreryModule\ArraySerializable;
 
-class FormInsert implements ArraySerializable
+class FormEntries implements ArraySerializable
 {
 
     const ID = 'id';
@@ -15,7 +15,7 @@ class FormInsert implements ArraySerializable
      * @var int
      */
     public $id = 0;
-
+    
     /**
      * @var int
      */
@@ -27,7 +27,7 @@ class FormInsert implements ArraySerializable
     public $entry = [];
 
     /**
-     * Form constructor.
+     * FormEntries constructor.
      * @param int $id
      * @param int $formId
      * @param array $entry
@@ -39,7 +39,6 @@ class FormInsert implements ArraySerializable
             ->setFormId($formId)
             ->setEntry($entry);
     }
-
 
     /**
      * @return int
@@ -55,7 +54,7 @@ class FormInsert implements ArraySerializable
      */
     public function setId($id)
     {
-        $this->id = (int)$id;
+        $this->id = $id;
         return $this;
     }
 
@@ -73,7 +72,7 @@ class FormInsert implements ArraySerializable
      */
     public function setFormId($formId)
     {
-        $this->formId = (int)$formId;
+        $this->formId = $formId;
         return $this;
     }
 
@@ -94,8 +93,7 @@ class FormInsert implements ArraySerializable
         $this->entry = $entry;
         return $this;
     }
-
-
+    
     /**
      * @return array
      */
@@ -104,7 +102,7 @@ class FormInsert implements ArraySerializable
         return [
             self::ID => $this->getId(),
             self::FORM_ID => $this->getFormId(),
-            self::ENTRY => $this->getEntry(),
+            self::ENTRY => $this->getEntry()
         ];
     }
 }

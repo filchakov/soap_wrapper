@@ -4,7 +4,7 @@ namespace Modules\Contact\Mappers;
 
 use Modules\Contact\Models\Contact;
 use Modules\Contact\Models\ContactNullObject;
-use Modules\Entity\EntityMapper;
+use Modules\LibreryModule\Entity\EntityMapper;
 
 class ContactMapper extends EntityMapper
 {

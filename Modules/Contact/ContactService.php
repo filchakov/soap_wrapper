@@ -8,8 +8,9 @@ use Modules\Contact\Models\Contact;
 use Modules\Contact\Models\ContactCollection;
 use Modules\Contact\Models\ContactNullObject;
 use Modules\LibreryModule\Collection;
+use SoapFault;
 
-class ContactService
+class ContactService extends \Modules\LibreryModule\AbstractService
 {
 
     private $mapper = null;
@@ -45,7 +46,7 @@ class ContactService
      */
     public function get(integer $id)
     {
-        return $this->getMapper()->get($id);
+         return $this->getMapper()->get($id);
     }
 
     /**
@@ -91,7 +92,7 @@ class ContactService
     /**
      * @return ContactMapper
      */
-    private function getMapper()
+    protected function getMapper()
     {
         return $this->mapper;
     }
@@ -100,7 +101,7 @@ class ContactService
      * @param $client
      * @return $this
      */
-    private function setMapper($client)
+    protected function setMapper($client)
     {
         $this->mapper = $client;
         return $this;

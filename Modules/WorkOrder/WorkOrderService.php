@@ -9,7 +9,7 @@ use Modules\WorkOrder\Models\Schedule;
 use Modules\WorkOrder\Models\WorkOrder;
 use Modules\WorkOrder\Models\WorkOrderFullCollection;
 
-class WorkOrderService
+class WorkOrderService extends \Modules\LibreryModule\AbstractService
 {
     private $mapper = null;
 
@@ -105,7 +105,7 @@ class WorkOrderService
     /**
      * @return WorkOrderMapper
      */
-    private function getMapper()
+    protected function getMapper()
     {
         return $this->mapper;
     }
@@ -114,7 +114,7 @@ class WorkOrderService
      * @param $client
      * @return $this
      */
-    private function setMapper($client)
+    protected function setMapper($client)
     {
         $this->mapper = $client;
         return $this;

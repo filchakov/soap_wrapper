@@ -7,7 +7,7 @@ use Modules\Customer\Models\Adress\Billing;
 use Modules\Customer\Models\Adress\Shipping;
 use Modules\Customer\Models\Customer;
 use Modules\Customer\Models\CustomerAdress;
-use Modules\Entity\EntityMapper;
+use Modules\LibreryModule\Entity\EntityMapper;
 
 class CustomerAdressMapper extends EntityMapper
 {

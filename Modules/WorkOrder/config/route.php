@@ -27,6 +27,5 @@ $app->post('/work-orders', function () use ($app) {
 
     $server = new SoapServer(WEBSERVICE_URL . WorkOrderMapper::URL . '.wsdl', $options);
     $server->setClass('Modules\\WorkOrder\\WorkOrderService');
-
     $server->handle();
 });

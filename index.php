@@ -12,6 +12,7 @@ $app->group('/v1', function() use ($app){
     include_once('Modules/WorkOrder/config/route.php');
     include_once('Modules/Customer/config/route.php');
     include_once('Modules/Form/config/route.php');
+    include_once('Modules/FormEntries/config/route.php');
 });
 
 $app->run();

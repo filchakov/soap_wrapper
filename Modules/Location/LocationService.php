@@ -7,7 +7,7 @@ use Modules\Location\Mappers\LocationMapper;
 use Modules\Location\Models\Location;
 use Modules\Location\Models\LocationCollection;
 
-class LocationService
+class LocationService extends \Modules\LibreryModule\AbstractService
 {
 
     private $mapper = null;
@@ -97,7 +97,7 @@ class LocationService
     /**
      * @return LocationMapper
      */
-    private function getMapper()
+    protected function getMapper()
     {
         return $this->mapper;
     }
@@ -106,7 +106,7 @@ class LocationService
      * @param $client
      * @return $this
      */
-    private function setMapper($client)
+    protected function setMapper($client)
     {
         $this->mapper = $client;
         return $this;
