@@ -2,21 +2,21 @@
 
 use Modules\FormEntries\Mappers\FormEntriesMapper;
 use Zend\Soap\AutoDiscover;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
+
+
 use Zend\Soap\Wsdl\ComplexTypeStrategy\ArrayOfTypeSequence;
 
-$app->get('/form-entries.wsdl', function(ServerRequestInterface $request, ResponseInterface $response) use ($app){
+$app->get('/form-entries.wsdl', function() use ($app){
 
-    $autodiscover = new AutoDiscover(new ArrayOfTypeSequence());
+    $serverWSDL = new AutoDiscover(new ArrayOfTypeSequence());
 
-    $autodiscover
+    $serverWSDL
         ->setClass('Modules\\FormEntries\\FormEntriesService')
         ->setServiceName('FormEntries')
         ->setUri(WEBSERVICE_URL . FormEntriesMapper::URL);
 
     header('Content-type: application/xml; charset=utf-8');
-    echo $autodiscover->toXml();
+    echo $serverWSDL->toXml();
     die;
 });
 

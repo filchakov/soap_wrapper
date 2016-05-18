@@ -2,7 +2,7 @@
 
 namespace Modules\WorkOrder\Models;
 
-use Modules\LibreryModule\ArraySerializable;
+use Modules\LibraryModule\ArraySerializable;
 
 class Schedule implements ArraySerializable
 {
@@ -101,7 +101,7 @@ class Schedule implements ArraySerializable
     public function toArray()
     {
         return [
-            self::DATA => $this->getDate(),
+            self::DATE => $this->getDate(),
             self::FROM => $this->getFrom(),
             self::TO => $this->getTo(),
         ];

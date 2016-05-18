@@ -2,7 +2,7 @@
 
 namespace Modules\FormEntries\Mappers;
 
-use Modules\LibreryModule\Entity\EntityMapper;
+use Modules\LibraryModule\Entity\EntityMapper;
 use Modules\FormEntries\Models\FormEntries;
 use Modules\FormEntries\Models\FormEntriesNullObject;
 

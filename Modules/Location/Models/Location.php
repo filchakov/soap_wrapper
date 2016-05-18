@@ -2,7 +2,7 @@
 
 namespace Modules\Location\Models;
 
-use Modules\LibreryModule\ArraySerializable;
+use Modules\LibraryModule\ArraySerializable;
 
 class Location implements ArraySerializable
 {

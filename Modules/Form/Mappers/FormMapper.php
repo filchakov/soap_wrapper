@@ -2,9 +2,7 @@
 
 namespace Modules\Form\Mappers;
 
-use Modules\Contact\Models\Contact;
-use Modules\Contact\Models\ContactNullObject;
-use Modules\LibreryModule\Entity\EntityMapper;
+use Modules\LibraryModule\Entity\EntityMapper;
 
 class FormMapper extends EntityMapper
 {
@@ -16,21 +14,21 @@ class FormMapper extends EntityMapper
 
     /**
      * @param array $objectData
-     * @return Contact|ContactNullObject
+     * @return \Modules\Form\Models\Form|\Modules\Form\Models\FormNullObject
      */
     public function buildObject(array $objectData)
     {
-        var_dump($objectData);die;
+
         if(!count($objectData)){
-            return new \Modules\Contact\Models\ContactNullObject();
+            return new \Modules\Form\Models\FormNullObject();
         }
 
-        return new \Modules\Contact\Models\Contact(
-            $objectData[\Modules\Contact\Models\Contact::ID],
-            $objectData[\Modules\Contact\Models\Contact::FIRST_NAME],
-            $objectData[\Modules\Contact\Models\Contact::LAST_NAME],
-            $objectData[\Modules\Contact\Models\Contact::PHONE_NUMBER],
-            $objectData[\Modules\Contact\Models\Contact::EMAIL]
+        return new \Modules\Form\Models\Form(
+            $objectData[\Modules\Form\Models\Form::ID],
+            $objectData[\Modules\Form\Models\Form::BUILDER],
+            $objectData[\Modules\Form\Models\Form::SCHEMA],
+            $objectData[\Modules\Form\Models\Form::LAYOUT],
+            $objectData[\Modules\Form\Models\Form::DRIVE_STATUS]
         );
     }
 }

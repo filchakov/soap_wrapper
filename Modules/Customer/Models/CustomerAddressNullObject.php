@@ -3,10 +3,10 @@
 namespace Modules\Customer\Models;
 
 use Modules\Contact\Models\ContactNullObject;
-use Modules\Customer\Models\Adress\BillingNullObject;
-use Modules\Customer\Models\Adress\ShippingNullObject;
+use Modules\Customer\Models\Address\BillingNullObject;
+use Modules\Customer\Models\Address\ShippingNullObject;
 
-class CustomerAdressNullObject extends CustomerAdress
+class CustomerAddressNullObject extends CustomerAddress
 {
 
     public function __construct()

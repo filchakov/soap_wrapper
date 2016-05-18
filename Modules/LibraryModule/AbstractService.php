@@ -1,7 +1,7 @@
 <?php
-namespace Modules\LibreryModule;
+namespace Modules\LibraryModule;
 
-use Modules\LibreryModule\Entity\EntityMapper;
+use Modules\LibraryModule\Entity\EntityMapper;
 use SoapFault;
 
 abstract class AbstractService {
@@ -19,8 +19,13 @@ abstract class AbstractService {
         if(!empty($accessToken) && !empty($secretKey)) {
             $this->getMapper()->setAccessToken($accessToken)->setSecretKey($secretKey);
         } else {
-            throw new \SoapFault("401", EntityMapper::INVALID_CREDINTIALS);
+            throw new \SoapFault("401", EntityMapper::INVALID_CREDENTIALS);
         }
     }
+
+    /**
+     * @return \Modules\LibraryModule\Entity\EntityMapper
+     */
+    abstract protected function getMapper();
 
 }

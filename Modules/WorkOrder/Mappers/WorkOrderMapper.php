@@ -3,14 +3,14 @@
 namespace Modules\WorkOrder\Mappers;
 
 
-use Modules\Customer\Mappers\CustomerAdressMapper;
-use Modules\Customer\Models\CustomerAdress;
-use Modules\LibreryModule\Entity\EntityMapper;
+use Modules\Customer\Mappers\CustomerAddressMapper;
+
+use Modules\LibraryModule\Entity\EntityMapper;
 use Modules\WorkOrder\Models\Form;
 use Modules\WorkOrder\Models\FormCollection;
 use Modules\WorkOrder\Models\Schedule;
 use Modules\WorkOrder\Models\Template;
-use Modules\WorkOrder\Models\TemplateNullObject;
+
 use Modules\WorkOrder\Models\WorkOrderFull;
 
 class WorkOrderMapper extends EntityMapper
@@ -31,8 +31,8 @@ class WorkOrderMapper extends EntityMapper
             return new \Modules\WorkOrder\Models\WorkOrderFullNullObject();
         }
 
-        $customerMapper = new CustomerAdressMapper();
-        $customerAdress = $customerMapper->buildObject($objectData[WorkOrderFull::CUSTOMER]);
+        $customerMapper = new CustomerAddressMapper();
+        $customerAddress = $customerMapper->buildObject($objectData[WorkOrderFull::CUSTOMER]);
 
 
         $schedule = new Schedule(
@@ -82,7 +82,7 @@ class WorkOrderMapper extends EntityMapper
         return new WorkOrderFull(
             $objectData[WorkOrderFull::ID],
             $objectData[WorkOrderFull::GROUPS],
-            $customerAdress,
+            $customerAddress,
             $schedule,
             $objectData[WorkOrderFull::TEMPLATE_ID],
             $template,

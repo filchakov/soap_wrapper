@@ -4,7 +4,7 @@ namespace Modules\Location\Mappers;
 
 use Modules\Location\Models\Location;
 use Modules\Location\Models\LocationNullObject;
-use Modules\LibreryModule\Entity\EntityMapper;
+use Modules\LibraryModule\Entity\EntityMapper;
 
 class LocationMapper extends EntityMapper
 {

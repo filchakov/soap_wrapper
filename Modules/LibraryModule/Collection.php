@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\LibreryModule;
+namespace Modules\LibraryModule;
 
 
 use Exception;

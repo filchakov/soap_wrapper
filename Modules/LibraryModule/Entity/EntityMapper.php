@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\LibreryModule\Entity;
+namespace Modules\LibraryModule\Entity;
 
 use Psr\Http\Message\ResponseInterface;
 use SoapFault;
@@ -8,7 +8,7 @@ use SoapFault;
 abstract class EntityMapper implements IEntityAPI{
 
     private $client = null;
-    const INVALID_CREDINTIALS = 'Invalid access token or secret key';
+    const INVALID_CREDENTIALS = 'Invalid access token or secret key';
 
     /**
      * @var null
@@ -27,6 +27,7 @@ abstract class EntityMapper implements IEntityAPI{
 
     /**
      * EntityMapper constructor.
+     * @param $url
      */
     public function __construct($url)
     {
@@ -44,10 +45,12 @@ abstract class EntityMapper implements IEntityAPI{
         return $this->sendRequest('GET');
     }
 
+
     /**
      * Show a single entity
      * @param $id
      * @return mixed|ResponseInterface
+     * @throws SoapFault
      */
     function get($id)
     {
@@ -72,7 +75,7 @@ abstract class EntityMapper implements IEntityAPI{
      * Update single entity
      * @param $id
      * @param $options
-     * @return boolean
+     * @return array
      */
     function update($id, $options)
     {
@@ -123,17 +126,6 @@ abstract class EntityMapper implements IEntityAPI{
     {
         $this->client = curl_init();
         return $this;
-    }
-
-    /**
-     * @param $id
-     * @param array $params
-     * @return array
-     */
-    private function buildParams($id, $params = [])
-    {
-        $params['id'] = $id;
-        return $params;
     }
 
     /**
@@ -249,7 +241,7 @@ abstract class EntityMapper implements IEntityAPI{
     {
         return array(
             'Content-Type: application/json; charset=utf-8',
-            'X-Athorization: ' . $this->getAccessToken() . ':' . $this->getSecretKey()
+            'X-Authorization: ' . $this->getAccessToken() . ':' . $this->getSecretKey()
         );
     }
 
@@ -274,7 +266,7 @@ abstract class EntityMapper implements IEntityAPI{
                     break;
                 case 'You are unauthorized to make this request.':
                     $code = 401;
-                    $result['error'] = self::INVALID_CREDINTIALS;
+                    $result['error'] = self::INVALID_CREDENTIALS;
                     break;
             }
 

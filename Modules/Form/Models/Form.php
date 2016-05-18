@@ -3,7 +3,7 @@
 namespace Modules\Form\Models;
 
 
-use Modules\LibreryModule\ArraySerializable;
+use Modules\LibraryModule\ArraySerializable;
 
 class Form implements ArraySerializable
 {
@@ -42,9 +42,9 @@ class Form implements ArraySerializable
     /**
      * Form constructor.
      * @param int $id
-     * @param object $builder
-     * @param object $schema
-     * @param object $layout
+     * @param array $builder
+     * @param array $schema
+     * @param array $layout
      * @param string $driveStatus
      */
     public function __construct($id, $builder, $schema, $layout, $driveStatus)

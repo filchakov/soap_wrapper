@@ -2,8 +2,8 @@
 
 namespace Modules\WorkOrder\Models;
 
-use Modules\Customer\Models\CustomerAdress;
-use Modules\LibreryModule\ArraySerializable;
+use Modules\Customer\Models\CustomerAddress;
+use Modules\LibraryModule\ArraySerializable;
 
 class WorkOrderFull implements ArraySerializable
 {
@@ -43,7 +43,7 @@ class WorkOrderFull implements ArraySerializable
     public $groups = [];
 
     /**
-     * @var \Modules\Customer\Models\CustomerAdress
+     * @var \Modules\Customer\Models\CustomerAddress
      */
     public $customer = [];
 
@@ -153,7 +153,7 @@ class WorkOrderFull implements ArraySerializable
      * WorkOrder constructor.
      * @param int $id
      * @param array $groups
-     * @param \Modules\Customer\Models\CustomerAdress $customer
+     * @param \Modules\Customer\Models\CustomerAddress $customer
      * @param \Modules\WorkOrder\Models\Schedule $schedule
      * @param int $templateId
      * @param \Modules\WorkOrder\Models\Template $template
@@ -172,8 +172,10 @@ class WorkOrderFull implements ArraySerializable
      * @param int $duration
      * @param int $driverId
      * @param array $formEntries
+     * @param string $completedOn
+     * @param string $expectedArrival
      */
-    public function __construct($id, array $groups, CustomerAdress $customer, Schedule $schedule, $templateId,
+    public function __construct($id, array $groups, CustomerAddress $customer, Schedule $schedule, $templateId,
                                 Template $template, $templateEntries, $formId, $formEntryId, Form $form, $formEntry,
                                 $formName, $products, $routeId, $name, $comments, $status, $delivered, $duration, $driverId, $formEntries,
                                 $completedOn, $expectedArrival)
@@ -244,7 +246,7 @@ class WorkOrderFull implements ArraySerializable
     }
 
     /**
-     * @return \Modules\Customer\Models\CustomerAdress
+     * @return \Modules\Customer\Models\CustomerAddress
      */
     public function getCustomer()
     {
@@ -252,7 +254,7 @@ class WorkOrderFull implements ArraySerializable
     }
 
     /**
-     * @param \Modules\Customer\Models\CustomerAdress $customer
+     * @param \Modules\Customer\Models\CustomerAddress $customer
      * @return $this
      */
     public function setCustomer($customer)

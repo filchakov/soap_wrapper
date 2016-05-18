@@ -3,7 +3,7 @@
 namespace Modules\WorkOrder\Models;
 
 
-use Modules\LibreryModule\ArraySerializable;
+use Modules\LibraryModule\ArraySerializable;
 
 class Form implements ArraySerializable
 {

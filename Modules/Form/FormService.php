@@ -2,12 +2,11 @@
 
 namespace Modules\Form;
 
-use Modules\Contact\Models\Contact;
 use Modules\Form\Mappers\FormMapper;
 use Modules\Form\Models\Form;
 use Modules\Form\Models\FormCollection;
 
-class FormService extends \Modules\LibreryModule\AbstractService
+class FormService extends \Modules\LibraryModule\AbstractService
 {
 
     private $mapper = null;

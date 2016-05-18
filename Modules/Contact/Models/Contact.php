@@ -2,7 +2,7 @@
 
 namespace Modules\Contact\Models;
 
-use Modules\LibreryModule\ArraySerializable;
+use Modules\LibraryModule\ArraySerializable;
 
 class Contact implements ArraySerializable
 {

@@ -7,7 +7,7 @@ use Modules\Location\Mappers\LocationMapper;
 use Modules\Location\Models\Location;
 use Modules\Location\Models\LocationCollection;
 
-class LocationService extends \Modules\LibreryModule\AbstractService
+class LocationService extends \Modules\LibraryModule\AbstractService
 {
 
     private $mapper = null;

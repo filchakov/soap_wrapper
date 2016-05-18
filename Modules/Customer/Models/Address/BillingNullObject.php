@@ -1,8 +1,9 @@
 <?php
 
-namespace Modules\Customer\Models\Adress;
+namespace Modules\Customer\Models\Address;
 
-class ShippingNullObject extends Shipping
+
+class BillingNullObject extends Billing
 {
     public function __construct()
     {

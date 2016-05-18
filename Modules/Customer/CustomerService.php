@@ -3,11 +3,11 @@
 namespace Modules\Customer;
 
 
-use Modules\Customer\Mappers\CustomerAdressMapper;
+use Modules\Customer\Mappers\CustomerAddressMapper;
 
-use Modules\Customer\Models\CustomerAdressCollection;
+use Modules\Customer\Models\CustomerAddressCollection;
 
-class CustomerService extends \Modules\LibreryModule\AbstractService
+class CustomerService extends \Modules\LibraryModule\AbstractService
 {
 
     private $mapper = null;
@@ -17,18 +17,18 @@ class CustomerService extends \Modules\LibreryModule\AbstractService
      */
     public function __construct()
     {
-        $this->setMapper(new CustomerAdressMapper());
+        $this->setMapper(new CustomerAddressMapper());
     }
 
     /**
      * Show all customers
-     * @return \Modules\Customer\Models\CustomerAdressCollection
+     * @return \Modules\Customer\Models\CustomerAddressCollection
      */
     public function show()
     {
         $result = $this->getMapper()->show();
 
-        $collection = new CustomerAdressCollection();
+        $collection = new CustomerAddressCollection();
 
         foreach ($result as $key => $item) {
             $collection->addItem($this->getMapper()->buildObject($item), $key);
@@ -42,13 +42,13 @@ class CustomerService extends \Modules\LibreryModule\AbstractService
     /**
      * Show a single customer
      * @param integer $id
-     * @return \Modules\Customer\Models\CustomerAdress
+     * @return \Modules\Customer\Models\CustomerAddress
      */
     public function get(integer $id)
     {
         $request = $this->getMapper()->get($id);
         //$customer = new Customer();
-        //$result = new CustomerAdress($customer);
+        //$result = new CustomerAddress($customer);
         return $request;
     }
 
@@ -58,7 +58,7 @@ class CustomerService extends \Modules\LibreryModule\AbstractService
      * @param integer $shippingID
      * @param integer $billingID
      * @param integer $mainContactID
-     * @return \Modules\Customer\Models\CustomerAdress
+     * @return \Modules\Customer\Models\CustomerAddress
      */
     public function insert(string $name, integer $shippingID, integer $billingID, integer $mainContactID)
     {
@@ -90,7 +90,7 @@ class CustomerService extends \Modules\LibreryModule\AbstractService
     }
 
     /**
-     * @return CustomerAdressMapper
+     * @return CustomerAddressMapper
      */
     protected function getMapper()
     {

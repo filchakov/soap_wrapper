@@ -3,7 +3,7 @@
 namespace Modules\Customer\Models;
 
 
-use Modules\LibreryModule\ArraySerializable;
+use Modules\LibraryModule\ArraySerializable;
 
 class Customer implements ArraySerializable
 {

@@ -2,15 +2,11 @@
 
 namespace Modules\Contact;
 
-use Exception;
 use Modules\Contact\Mappers\ContactMapper;
 use Modules\Contact\Models\Contact;
 use Modules\Contact\Models\ContactCollection;
-use Modules\Contact\Models\ContactNullObject;
-use Modules\LibreryModule\Collection;
-use SoapFault;
 
-class ContactService extends \Modules\LibreryModule\AbstractService
+class ContactService extends \Modules\LibraryModule\AbstractService
 {
 
     private $mapper = null;

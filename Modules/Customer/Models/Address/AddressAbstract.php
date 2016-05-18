@@ -1,8 +1,8 @@
 <?php
 
-namespace Modules\Customer\Models\Adress;
+namespace Modules\Customer\Models\Address;
 
-abstract class AdressAbstract
+abstract class AddressAbstract
 {
     const ID = 'id';
     const ADDRESS = 'address';
@@ -60,7 +60,7 @@ abstract class AdressAbstract
     public $latitude = 0.0;
 
     /**
-     * AdressAbstract constructor.
+     * AddressAbstract constructor.
      * @param int $id
      * @param string $address
      * @param string $address2
@@ -95,7 +95,7 @@ abstract class AdressAbstract
 
     /**
      * @param int $id
-     * @return AdressAbstract
+     * @return AddressAbstract
      */
     public function setId($id)
     {
@@ -113,7 +113,7 @@ abstract class AdressAbstract
 
     /**
      * @param string $address
-     * @return AdressAbstract
+     * @return AddressAbstract
      */
     public function setAddress($address)
     {
@@ -131,7 +131,7 @@ abstract class AdressAbstract
 
     /**
      * @param string $address2
-     * @return AdressAbstract
+     * @return AddressAbstract
      */
     public function setAddress2($address2)
     {
@@ -149,7 +149,7 @@ abstract class AdressAbstract
 
     /**
      * @param string $city
-     * @return AdressAbstract
+     * @return AddressAbstract
      */
     public function setCity($city)
     {
@@ -167,7 +167,7 @@ abstract class AdressAbstract
 
     /**
      * @param string $state
-     * @return AdressAbstract
+     * @return AddressAbstract
      */
     public function setState($state)
     {
@@ -185,7 +185,7 @@ abstract class AdressAbstract
 
     /**
      * @param string $zipCode
-     * @return AdressAbstract
+     * @return AddressAbstract
      */
     public function setZipCode($zipCode)
     {
@@ -203,7 +203,7 @@ abstract class AdressAbstract
 
     /**
      * @param string $country
-     * @return AdressAbstract
+     * @return AddressAbstract
      */
     public function setCountry($country)
     {
@@ -221,7 +221,7 @@ abstract class AdressAbstract
 
     /**
      * @param float $longitude
-     * @return AdressAbstract
+     * @return AddressAbstract
      */
     public function setLongitude($longitude)
     {
@@ -239,7 +239,7 @@ abstract class AdressAbstract
 
     /**
      * @param float $latitude
-     * @return AdressAbstract
+     * @return AddressAbstract
      */
     public function setLatitude($latitude)
     {

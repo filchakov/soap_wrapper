@@ -2,7 +2,7 @@
 
 namespace Modules\FormEntries\Models;
 
-use Modules\LibreryModule\ArraySerializable;
+use Modules\LibraryModule\ArraySerializable;
 
 class FormEntries implements ArraySerializable
 {

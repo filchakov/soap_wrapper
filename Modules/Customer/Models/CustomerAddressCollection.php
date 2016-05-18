@@ -4,30 +4,30 @@ namespace Modules\Customer\Models;
 
 use Exception;
 
-class CustomerAdressCollection
+class CustomerAddressCollection
 {
     /**
-     * @var \Modules\Customer\Models\CustomerAdress[]
+     * @var \Modules\Customer\Models\CustomerAddress[]
      */
-    public $customerAdress = null;
+    public $customerAddress = null;
 
     public function addItem($obj, $key = null) {
         if ($key == null) {
-            $this->customerAdress[] = $obj;
+            $this->customerAddress[] = $obj;
         }
         else {
-            if (isset($this->customerAdress[$key])) {
+            if (isset($this->customerAddress[$key])) {
                 throw new Exception("Key $key already in use.");
             }
             else {
-                $this->customerAdress[$key] = $obj;
+                $this->customerAddress[$key] = $obj;
             }
         }
     }
 
     public function deleteItem($key) {
-        if (isset($this->customerAdress[$key])) {
-            unset($this->customerAdress[$key]);
+        if (isset($this->customerAddress[$key])) {
+            unset($this->customerAddress[$key]);
         }
         else {
             throw new Exception("Invalid key $key.");
@@ -35,8 +35,8 @@ class CustomerAdressCollection
     }
 
     public function getItem($key) {
-        if (isset($this->customerAdress[$key])) {
-            return $this->customerAdress[$key];
+        if (isset($this->customerAddress[$key])) {
+            return $this->customerAddress[$key];
         }
         else {
             throw new Exception("Invalid key $key.");
@@ -44,7 +44,7 @@ class CustomerAdressCollection
     }
 
     public function get(){
-        return $this->customerAdress;
+        return $this->customerAddress;
     }
 
 }

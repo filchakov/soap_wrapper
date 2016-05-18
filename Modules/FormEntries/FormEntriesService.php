@@ -6,7 +6,7 @@ use Modules\FormEntries\Mappers\FormEntriesMapper;
 use Modules\FormEntries\Models\FormEntries;
 use Modules\FormEntries\Models\FormEntriesCollection;
 
-class FormEntriesService extends \Modules\LibreryModule\AbstractService
+class FormEntriesService extends \Modules\LibraryModule\AbstractService
 {
 
     private $mapper = null;

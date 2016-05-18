@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\LibreryModule\Entity;
+namespace Modules\LibraryModule\Entity;
 
 interface IEntityAPI {
 

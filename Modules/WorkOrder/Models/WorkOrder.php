@@ -3,7 +3,7 @@
 namespace Modules\WorkOrder\Models;
 
 use Modules\Customer\Models\Customer;
-use Modules\LibreryModule\ArraySerializable;
+use Modules\LibraryModule\ArraySerializable;
 
 class WorkOrder implements ArraySerializable
 {

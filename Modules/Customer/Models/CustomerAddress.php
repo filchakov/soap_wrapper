@@ -4,11 +4,11 @@ namespace Modules\Customer\Models;
 
 
 use Modules\Contact\Models\Contact;
-use Modules\Customer\Models\Adress\Billing;
-use Modules\Customer\Models\Adress\Shipping;
-use Modules\LibreryModule\ArraySerializable;
+use Modules\Customer\Models\Address\Billing;
+use Modules\Customer\Models\Address\Shipping;
+use Modules\LibraryModule\ArraySerializable;
 
-class CustomerAdress implements ArraySerializable
+class CustomerAddress implements ArraySerializable
 {
 
     const ID = 'id';
@@ -18,7 +18,7 @@ class CustomerAdress implements ArraySerializable
 
     const BILLING = 'billing';
 
-    const CONTACSTS = 'contacts';
+    const CONTACTS = 'contacts';
 
     /**
      * @var int
@@ -31,12 +31,12 @@ class CustomerAdress implements ArraySerializable
     public $name = '';
 
     /**
-     * @var \Modules\Customer\Models\Adress\Shipping
+     * @var \Modules\Customer\Models\Address\Shipping
      */
     public $shipping = null;
 
     /**
-     * @var \Modules\Customer\Models\Adress\Billing
+     * @var \Modules\Customer\Models\Address\Billing
      */
     public $billing = null;
 
@@ -46,12 +46,11 @@ class CustomerAdress implements ArraySerializable
     public $contacts = null;
 
     /**
-     * CustomerAdress constructor.
-     * @param int $id
-     * @param string $name
-     * @param int $shippingID
-     * @param int $billingID
-     * @param int $mainContactID
+     * CustomerAddress constructor
+     * @param Customer $customer
+     * @param Shipping $shipping
+     * @param Billing $billing
+     * @param Contact $contact
      */
     public function __construct(Customer $customer, Shipping $shipping, Billing $billing, Contact $contact)
     {
@@ -163,7 +162,7 @@ class CustomerAdress implements ArraySerializable
             self::NAME => $this->getName(),
             self::SHIPPING => $this->getShipping()->toArray(),
             self::BILLING => $this->getBilling()->toArray(),
-            self::CONTACSTS => $this->getContacts()->toArray(),
+            self::CONTACTS => $this->getContacts()->toArray(),
         ];
     }
 }

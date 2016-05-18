@@ -9,7 +9,7 @@ use Modules\WorkOrder\Models\Schedule;
 use Modules\WorkOrder\Models\WorkOrder;
 use Modules\WorkOrder\Models\WorkOrderFullCollection;
 
-class WorkOrderService extends \Modules\LibreryModule\AbstractService
+class WorkOrderService extends \Modules\LibraryModule\AbstractService
 {
     private $mapper = null;
 
