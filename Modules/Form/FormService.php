@@ -20,7 +20,7 @@ class FormService extends \Modules\LibraryModule\AbstractService
     }
 
     /**
-     * Show all contacts
+     * Show all forms
      * @return \Modules\Form\Models\FormCollection
      */
     public function show()
@@ -36,7 +36,7 @@ class FormService extends \Modules\LibraryModule\AbstractService
     }
 
     /**
-     * Show a single contact
+     * Show a single form
      * @param integer $id
      * @return \Modules\Form\Models\Form
      */
@@ -75,7 +75,7 @@ class FormService extends \Modules\LibraryModule\AbstractService
     }
 
     /**
-     * Delete contact
+     * Delete form
      * @param integer $id
      * @return bool
      */
