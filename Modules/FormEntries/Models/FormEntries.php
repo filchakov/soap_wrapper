@@ -22,7 +22,7 @@ class FormEntries implements ArraySerializable
     public $formId = 0;
 
     /**
-     * @var array
+     * @var object
      */
     public $entry = [];
 

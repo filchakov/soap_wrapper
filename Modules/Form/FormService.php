@@ -47,9 +47,9 @@ class FormService extends \Modules\LibraryModule\AbstractService
 
     /**
      * Insert new form
-     * @param array $builder
-     * @param array $schema
-     * @param array $layout
+     * @param object $builder
+     * @param object $schema
+     * @param object $layout
      * @param string $driveStatus
      * @return \Modules\Form\Models\Form
      */
@@ -62,9 +62,9 @@ class FormService extends \Modules\LibraryModule\AbstractService
     /**
      * Update single form
      * @param integer $id
-     * @param array $builder
-     * @param array $schema
-     * @param array $layout
+     * @param object $builder
+     * @param object $schema
+     * @param object $layout
      * @param string $driveStatus
      * @return \Modules\Form\Models\Form
      */

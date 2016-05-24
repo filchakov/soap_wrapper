@@ -16,6 +16,11 @@ abstract class EntityMapper implements IEntityAPI{
     private $url = null;
 
     /**
+     * @var null
+     */
+    private $queryParams = null;
+
+    /**
      * @var string
      */
     private $accessToken = '';
@@ -101,7 +106,7 @@ abstract class EntityMapper implements IEntityAPI{
             unset($options['id']);
         }
 
-        $url = $this->getUrl() . (!empty($options['id'])? '/'.$options['id'] : '');
+        $url = $this->getUrlForRequest($options);
 
         $result = $this->sendRequestToAPI($type, $options, $url);
 
@@ -163,6 +168,25 @@ abstract class EntityMapper implements IEntityAPI{
     }
 
     /**
+     * @return null
+     */
+    public function getQueryParams()
+    {
+        return $this->queryParams;
+    }
+
+    /**
+     * @param null $queryParams
+     * @return $this
+     */
+    public function setQueryParams($queryParams)
+    {
+        $queryParams = array_filter($queryParams);
+        $this->queryParams = $queryParams;
+        return $this;
+    }
+
+    /**
      * @param array $objectData
      * @return mixed
      */
@@ -209,6 +233,10 @@ abstract class EntityMapper implements IEntityAPI{
         $this->handlerException($result, curl_getinfo($curl));
 
         curl_close($curl);
+
+        if(empty($result) && $type == 'DELETE'){
+            $result = true;
+        }
 
         return $result;
     }
@@ -264,6 +292,21 @@ abstract class EntityMapper implements IEntityAPI{
         if(empty($this->getAccessToken())) {
             throw new \SoapFault("401", EntityMapper::INVALID_CREDENTIALS);
         }
+    }
+
+    /**
+     * @param $options
+     * @return string
+     */
+    private function getUrlForRequest($options)
+    {
+        $result = $this->getUrl() . (!empty($options['id']) ? '/' . $options['id'] : '');
+
+        if(!is_null($this->getQueryParams()) && !empty($this->getQueryParams())){
+            $result .= '?' . http_build_query($this->getQueryParams());
+        }
+
+        return $result;
     }
 
 }

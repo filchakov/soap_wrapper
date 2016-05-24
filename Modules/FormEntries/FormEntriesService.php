@@ -48,7 +48,7 @@ class FormEntriesService extends \Modules\LibraryModule\AbstractService
     /**
      * Inserts new form-entry
      * @param int $formId
-     * @param array $entry
+     * @param object $entry
      * @return \Modules\FormEntries\Models\FormEntries
      */
     public function insert($formId = 0, $entry = [])
@@ -61,7 +61,7 @@ class FormEntriesService extends \Modules\LibraryModule\AbstractService
      * Update single form-entry
      * @param integer $id
      * @param int $formId
-     * @param array $entry
+     * @param object $entry
      * @return \Modules\FormEntries\Models\FormEntries
      */
     public function update(integer $id, $formId = 0, $entry = [])

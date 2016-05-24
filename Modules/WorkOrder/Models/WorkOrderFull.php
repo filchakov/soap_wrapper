@@ -38,7 +38,7 @@ class WorkOrderFull implements ArraySerializable
     public $id = 0;
 
     /**
-     * @var array
+     * @var object
      */
     public $groups = [];
 
@@ -65,7 +65,7 @@ class WorkOrderFull implements ArraySerializable
 
 
     /**
-     * @var array
+     * @var object
      */
     public $templateEntries = [];
 
@@ -85,7 +85,7 @@ class WorkOrderFull implements ArraySerializable
     public $form = [];
 
     /**
-     * @var array
+     * @var object
      */
     public $formEntry = [];
 
@@ -95,7 +95,7 @@ class WorkOrderFull implements ArraySerializable
     public $formName = '';
 
     /**
-     * @var array
+     * @var object
      */
     public $products = [];
 
@@ -120,7 +120,7 @@ class WorkOrderFull implements ArraySerializable
     public $status = '';
 
     /**
-     * @var array
+     * @var object
      */
     public $delivered = [];
 
@@ -145,7 +145,7 @@ class WorkOrderFull implements ArraySerializable
     public $expectedArrival = '';
 
     /**
-     * @var array
+     * @var object
      */
     public $formEntries = [];
 

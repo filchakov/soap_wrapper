@@ -23,11 +23,13 @@ class WorkOrderService extends \Modules\LibraryModule\AbstractService
 
     /**
      * Show all work orders
+     * @param string $status
      * @return \Modules\WorkOrder\Models\WorkOrderFullCollection
+     * @throws \Exception
      */
-    public function show()
+    public function show($status)
     {
-        $result = $this->getMapper()->show();
+        $result = $this->getMapper()->setQueryParams(['status' => $status])->show();
 
         $collection = new WorkOrderFullCollection();
         foreach ($result as $key => $item) {
