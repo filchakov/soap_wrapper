@@ -14,6 +14,10 @@ class FormEntriesMapper extends EntityMapper
         parent::__construct(self::URL);
     }
 
+    public function __encode($t) {
+        return json_encode($t);
+    }
+
     /**
      * @param array $objectData
      * @return FormEntries|FormEntriesNullObject
@@ -28,7 +32,7 @@ class FormEntriesMapper extends EntityMapper
         return new FormEntries(
             $objectData[FormEntries::ID],
             $objectData[FormEntries::FORM_ID],
-            $objectData[FormEntries::ENTRY]
+            $this->__encode($objectData[FormEntries::ENTRY])
         );
     }
 }

@@ -11,25 +11,25 @@ class UserCollection
     /**
      * @var \Modules\User\Models\User[]
      */
-    public $user = null;
+    public $User = null;
 
     public function addItem($obj, $key = null) {
         if ($key == null) {
-            $this->user[] = $obj;
+            $this->User[] = $obj;
         }
         else {
-            if (isset($this->user[$key])) {
+            if (isset($this->User[$key])) {
                 throw new Exception("Key $key already in use.");
             }
             else {
-                $this->user[$key] = $obj;
+                $this->User[$key] = $obj;
             }
         }
     }
 
     public function deleteItem($key) {
-        if (isset($this->user[$key])) {
-            unset($this->user[$key]);
+        if (isset($this->User[$key])) {
+            unset($this->User[$key]);
         }
         else {
             throw new Exception("Invalid key $key.");
@@ -37,8 +37,8 @@ class UserCollection
     }
 
     public function getItem($key) {
-        if (isset($this->user[$key])) {
-            return $this->user[$key];
+        if (isset($this->User[$key])) {
+            return $this->User[$key];
         }
         else {
             throw new Exception("Invalid key $key.");
@@ -46,6 +46,6 @@ class UserCollection
     }
 
     public function get(){
-        return $this->user;
+        return $this->User;
     }
 }

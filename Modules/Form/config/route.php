@@ -12,6 +12,7 @@ $app->get('/forms.wsdl', function() use ($app){
 
     $serverWSDL
         ->setClass('Modules\\Form\\FormService')
+        ->setOperationBodyStyle(array('use' => 'literal'))
         ->setServiceName('Form')
         ->setUri(WEBSERVICE_URL . FormMapper::URL);
 

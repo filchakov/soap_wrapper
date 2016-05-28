@@ -21,10 +21,13 @@ class FormService extends \Modules\LibraryModule\AbstractService
 
     /**
      * Show all forms
+     * @param string $accessToken
      * @return \Modules\Form\Models\FormCollection
      */
-    public function show()
+    public function show($accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
+
         $result = $this->getMapper()->show();
 
         $collection = new FormCollection();
@@ -38,23 +41,27 @@ class FormService extends \Modules\LibraryModule\AbstractService
     /**
      * Show a single form
      * @param integer $id
+     * @param string $accessToken
      * @return \Modules\Form\Models\Form
      */
-    public function get(integer $id)
+    public function get($id = 0, $accessToken = '')
     {
-        return $this->getMapper()->get($id);
+        $this->getMapper()->setAccessToken($accessToken);
+        return $this->getMapper()->buildObject($this->getMapper()->get($id));
     }
 
     /**
      * Insert new form
-     * @param object $builder
-     * @param object $schema
-     * @param object $layout
+     * @param string $builder
+     * @param string $schema
+     * @param string $layout
      * @param string $driveStatus
+     * @param string $accessToken
      * @return \Modules\Form\Models\Form
      */
-    public function insert($builder = [], $schema = [], $layout = [], string $driveStatus)
+    public function insert($builder = '', $schema = '', $layout = '', $driveStatus = '', $accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
         $contact = new Form(0, $builder, $schema, $layout, $driveStatus);
         return $this->getMapper()->insert($contact->toArray());
     }
@@ -62,14 +69,16 @@ class FormService extends \Modules\LibraryModule\AbstractService
     /**
      * Update single form
      * @param integer $id
-     * @param object $builder
-     * @param object $schema
-     * @param object $layout
+     * @param string $builder
+     * @param string $schema
+     * @param string $layout
      * @param string $driveStatus
+     * @param string $accessToken
      * @return \Modules\Form\Models\Form
      */
-    public function update(integer $id, $builder = [], $schema = [], $layout = [], string $driveStatus)
+    public function update($id = 0, $builder = '', $schema = '', $layout = '', $driveStatus = '', $accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
         $contact = new Form($id, $builder, $schema, $layout, $driveStatus);
         return $this->getMapper()->update($id, $contact->toArray());
     }
@@ -77,10 +86,12 @@ class FormService extends \Modules\LibraryModule\AbstractService
     /**
      * Delete form
      * @param integer $id
+     * @param string $accessToken
      * @return bool
      */
-    public function delete(integer $id)
+    public function delete($id = 0, $accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
         return $this->getMapper()->delete($id);
     }
 

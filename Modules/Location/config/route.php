@@ -12,6 +12,7 @@ $app->get('/locations.wsdl', function () use ($app) {
 
     $serverWSDL
         ->setClass('Modules\\Location\\LocationService')
+        ->setOperationBodyStyle(array('use' => 'literal'))
         ->setServiceName('Location')
         ->setUri(WEBSERVICE_URL . LocationMapper::URL);
 

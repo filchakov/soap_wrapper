@@ -22,9 +22,9 @@ class FormEntries implements ArraySerializable
     public $formId = 0;
 
     /**
-     * @var object
+     * @var string
      */
-    public $entry = [];
+    public $entry = "";
 
     /**
      * FormEntries constructor.
@@ -85,7 +85,7 @@ class FormEntries implements ArraySerializable
     }
 
     /**
-     * @param array $entry
+     * @param string $entry
      * @return $this
      */
     public function setEntry($entry)

@@ -12,6 +12,7 @@ $app->get('/contacts.wsdl', function() use ($app){
 
     $serverWSDL
         ->setClass('Modules\\Contact\\ContactService')
+        ->setOperationBodyStyle(array('use' => 'literal'))
         ->setServiceName('Contact')
         ->setUri(WEBSERVICE_URL . ContactMapper::URL);
 

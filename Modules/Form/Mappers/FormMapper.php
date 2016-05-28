@@ -12,6 +12,10 @@ class FormMapper extends EntityMapper
         parent::__construct(self::URL);
     }
 
+    public function __encode($t) {
+        return json_encode($t);
+    }
+
     /**
      * @param array $objectData
      * @return \Modules\Form\Models\Form|\Modules\Form\Models\FormNullObject
@@ -25,9 +29,9 @@ class FormMapper extends EntityMapper
 
         return new \Modules\Form\Models\Form(
             $objectData[\Modules\Form\Models\Form::ID],
-            $objectData[\Modules\Form\Models\Form::BUILDER],
-            $objectData[\Modules\Form\Models\Form::SCHEMA],
-            $objectData[\Modules\Form\Models\Form::LAYOUT],
+            $this->__encode($objectData[\Modules\Form\Models\Form::BUILDER]),
+            $this->__encode($objectData[\Modules\Form\Models\Form::SCHEMA]),
+            $this->__encode($objectData[\Modules\Form\Models\Form::LAYOUT]),
             $objectData[\Modules\Form\Models\Form::DRIVE_STATUS]
         );
     }

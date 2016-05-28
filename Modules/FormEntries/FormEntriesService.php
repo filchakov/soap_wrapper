@@ -21,12 +21,13 @@ class FormEntriesService extends \Modules\LibraryModule\AbstractService
 
     /**
      * Show all form-entries
+     * @param string $accessToken
      * @return \Modules\FormEntries\Models\FormEntriesCollection
      */
-    public function show()
+    public function show($accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
         $result = $this->getMapper()->show();
-
         $collection = new FormEntriesCollection();
         foreach ($result as $key => $item) {
             $collection->addItem($this->getMapper()->buildObject($item), $key);
@@ -38,21 +39,25 @@ class FormEntriesService extends \Modules\LibraryModule\AbstractService
     /**
      * Show single form-entry
      * @param integer $id
+     * @param string $accessToken
      * @return \Modules\FormEntries\Models\FormEntries
      */
-    public function get(integer $id)
+    public function get($id = 0, $accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
         return $this->getMapper()->get($id);
     }
 
     /**
      * Inserts new form-entry
      * @param int $formId
-     * @param object $entry
+     * @param string $entry
+     * @param string $accessToken
      * @return \Modules\FormEntries\Models\FormEntries
      */
-    public function insert($formId = 0, $entry = [])
+    public function insert($formId = 0, $entry = '', $accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
         $formEntries = new FormEntries(0, $formId, $entry);
         return $this->getMapper()->insert($formEntries->toArray());
     }
@@ -61,11 +66,13 @@ class FormEntriesService extends \Modules\LibraryModule\AbstractService
      * Update single form-entry
      * @param integer $id
      * @param int $formId
-     * @param object $entry
+     * @param string $entry
+     * @param string $accessToken
      * @return \Modules\FormEntries\Models\FormEntries
      */
-    public function update(integer $id, $formId = 0, $entry = [])
+    public function update($id = 0, $formId = 0, $entry = '', $accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
         $formEntries = new FormEntries($id, $formId, $entry);
         return $this->getMapper()->update($id, $formEntries->toArray());
     }
@@ -73,10 +80,12 @@ class FormEntriesService extends \Modules\LibraryModule\AbstractService
     /**
      * Delete form-entry
      * @param integer $id
+     * @param string $accessToken
      * @return bool
      */
-    public function delete(integer $id)
+    public function delete($id = 0, $accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
         return $this->getMapper()->delete($id);
     }
 

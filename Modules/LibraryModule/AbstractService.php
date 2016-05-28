@@ -11,10 +11,11 @@ abstract class AbstractService {
      * @param string $accessToken
      * @return boolean
      */
-    public function Header($accessToken)
+
+    /*public function Header($accessToken)
     {
         $this->getMapper()->setAccessToken($accessToken);
-    }
+    }*/
 
     /**
      * @return \Modules\LibraryModule\Entity\EntityMapper

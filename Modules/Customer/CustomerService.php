@@ -22,10 +22,13 @@ class CustomerService extends \Modules\LibraryModule\AbstractService
 
     /**
      * Show all customers
+     * @param string $accessToken
      * @return \Modules\Customer\Models\CustomerAddressCollection
      */
-    public function show()
+    public function show($accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
+
         $result = $this->getMapper()->show();
 
         $collection = new CustomerAddressCollection();
@@ -42,14 +45,13 @@ class CustomerService extends \Modules\LibraryModule\AbstractService
     /**
      * Show a single customer
      * @param integer $id
+     * @param string $accessToken
      * @return \Modules\Customer\Models\CustomerAddress
      */
-    public function get(integer $id)
+    public function get($id = 0, $accessToken = '')
     {
-        $request = $this->getMapper()->get($id);
-        //$customer = new Customer();
-        //$result = new CustomerAddress($customer);
-        return $request;
+        $this->getMapper()->setAccessToken($accessToken);
+        return $this->getMapper()->buildObject($this->getMapper()->get($id));
     }
 
     /**
@@ -58,10 +60,12 @@ class CustomerService extends \Modules\LibraryModule\AbstractService
      * @param integer $shippingID
      * @param integer $billingID
      * @param integer $mainContactID
+     * @param string $accessToken
      * @return \Modules\Customer\Models\CustomerAddress
      */
-    public function insert(string $name, integer $shippingID, integer $billingID, integer $mainContactID)
+    public function insert($name = '', $shippingID = 0, $billingID = 0, $mainContactID = 0, $accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
         return $this->getMapper()->insert(compact('name', 'shippingID', 'billingID', 'mainContactID'));
     }
 
@@ -72,20 +76,24 @@ class CustomerService extends \Modules\LibraryModule\AbstractService
      * @param integer $shippingID
      * @param integer $billingID
      * @param integer $mainContactID
+     * @param string $accessToken
      * @return \Modules\Contact\Models\Contact
      */
-    public function update(integer $id, string $name, integer $shippingID, integer $billingID, integer $mainContactID)
+    public function update($id = 0, $name = '', $shippingID = 0, $billingID = 0, $mainContactID = 0, $accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
         return $this->getMapper()->update($id, compact('name', 'shippingID', 'billingID', 'mainContactID'));
     }
 
     /**
      * Delete customer
      * @param integer $id
+     * @param string $accessToken
      * @return bool
      */
-    public function delete(integer $id)
+    public function delete($id = 0, $accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
         return $this->getMapper()->delete($id);
     }
 

@@ -22,10 +22,13 @@ class LocationService extends \Modules\LibraryModule\AbstractService
 
     /**
      * Show all locations
+     * @param string $accessToken
      * @return \Modules\Location\Models\LocationCollection
      */
-    public function show()
+    public function show($accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
+
         $result = $this->getMapper()->show();
 
         $collection = new LocationCollection();
@@ -39,10 +42,12 @@ class LocationService extends \Modules\LibraryModule\AbstractService
     /**
      * Show a single location
      * @param integer $id
+     * @param string $accessToken
      * @return \Modules\Location\Models\Location
      */
-    public function get(integer $id)
+    public function get($id = 0, $accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
         return $this->getMapper()->get($id);
     }
 
@@ -54,12 +59,15 @@ class LocationService extends \Modules\LibraryModule\AbstractService
      * @param string $state
      * @param string $zipCode
      * @param string $country
-     * @param string $longitude
-     * @param string $latitude
+     * @param float $longitude
+     * @param float $latitude
+     * @param string $accessToken
      * @return \Modules\Location\Models\Location
      */
-    public function insert(string $address, string $address2, string $city, string $state, string $zipCode, string $country, float $longitude, float $latitude)
+    public function insert($address = '', $address2 = '', $city = '', $state = '', $zipCode = '', $country = '', $longitude = 0.0, $latitude = 0.0, $accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
+
         $location = new Location(0, $address, $address2, $city, $state, $zipCode, $country, $longitude, $latitude);
         return $this->getMapper()->insert($location->toArray());
     }
@@ -73,12 +81,14 @@ class LocationService extends \Modules\LibraryModule\AbstractService
      * @param string $state
      * @param string $zipCode
      * @param string $country
-     * @param string $longitude
-     * @param string $latitude
+     * @param float $longitude
+     * @param float $latitude
+     * @param string $accessToken
      * @return \Modules\Location\Models\Location
      */
-    public function update(integer $id, string $address, string $address2, string $city, string $state, string $zipCode, string $country, string $longitude, string $latitude)
+    public function update($id = 0, $address = '', $address2 = '', $city = '', $state = '', $zipCode = '', $country = '', $longitude = 0.0, $latitude = 0.0, $accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
         $location = new Location($id, $address, $address2, $city, $state, $zipCode, $country, $longitude, $latitude);
         return $this->getMapper()->update($id, $location->toArray());
     }
@@ -86,10 +96,12 @@ class LocationService extends \Modules\LibraryModule\AbstractService
     /**
      * Delete location
      * @param integer $id
+     * @param string $accessToken
      * @return bool
      */
-    public function delete(integer $id)
+    public function delete($id = 0, $accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
         return $this->getMapper()->delete($id);
     }
 

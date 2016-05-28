@@ -21,10 +21,13 @@ class ContactService extends \Modules\LibraryModule\AbstractService
 
     /**
      * Show all contacts
+     * @param string $accessToken
      * @return \Modules\Contact\Models\ContactCollection
      */
-    public function show()
+    public function show($accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
+
         $result = $this->getMapper()->show();
 
         $collection = new ContactCollection();
@@ -38,11 +41,13 @@ class ContactService extends \Modules\LibraryModule\AbstractService
     /**
      * Show a single contact
      * @param integer $id
+     * @param string $accessToken
      * @return \Modules\Contact\Models\Contact
      */
-    public function get(integer $id)
+    public function get($id = 0, $accessToken = '')
     {
-         return $this->getMapper()->get($id);
+        $this->getMapper()->setAccessToken($accessToken);
+        return $this->getMapper()->get($id);
     }
 
     /**
@@ -51,10 +56,13 @@ class ContactService extends \Modules\LibraryModule\AbstractService
      * @param string $lastName
      * @param string $phoneNumber
      * @param string $email
+     * @param string $accessToken
      * @return \Modules\Contact\Models\Contact
      */
-    public function insert(string $firstName, string $lastName, string $phoneNumber, string $email)
+    public function insert($firstName = '', $lastName = '', $phoneNumber = '', $email = '', $accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
+
         $contact = new Contact(0, $firstName, $lastName, $phoneNumber, $email);
         return $this->getMapper()->insert($contact->toArray());
     }
@@ -66,10 +74,12 @@ class ContactService extends \Modules\LibraryModule\AbstractService
      * @param string $lastName
      * @param string $phoneNumber
      * @param string $email
+     * @param string $accessToken
      * @return \Modules\Contact\Models\Contact
      */
-    public function update(integer $id, string $firstName, string $lastName, string $phoneNumber, string $email)
+    public function update($id = 0, $firstName = '', $lastName = '', $phoneNumber = '', $email = '', $accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
         $contact = new Contact($id, $firstName, $lastName, $phoneNumber, $email);
         return $this->getMapper()->update($id, $contact->toArray());
     }
@@ -77,10 +87,12 @@ class ContactService extends \Modules\LibraryModule\AbstractService
     /**
      * Delete contact
      * @param integer $id
+     * @param string $accessToken
      * @return bool
      */
-    public function delete(integer $id)
+    public function delete($id = 0, $accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
         return $this->getMapper()->delete($id);
     }
 

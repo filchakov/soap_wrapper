@@ -21,10 +21,12 @@ class UserService extends \Modules\LibraryModule\AbstractService
 
     /**
      * Show all users
+     * @param string $accessToken
      * @return \Modules\User\Models\UserCollection
      */
-    public function show()
+    public function show($accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
         $result = $this->getMapper()->show();
 
         $collection = new UserCollection();
@@ -38,10 +40,12 @@ class UserService extends \Modules\LibraryModule\AbstractService
     /**
      * Show a single user
      * @param string $id
+     * @param string $accessToken
      * @return \Modules\User\Models\User
      */
-    public function get(string $id)
+    public function get($id = 0, $accessToken = '')
     {
+         $this->getMapper()->setAccessToken($accessToken);
          return $this->getMapper()->get($id);
     }
 
@@ -51,12 +55,14 @@ class UserService extends \Modules\LibraryModule\AbstractService
      * @param string $lastName
      * @param string $username
      * @param string $email
-     * @param string $disabled
-     * @param string $isDriver
+     * @param integer $disabled
+     * @param integer $isDriver
+     * @param string $accessToken
      * @return \Modules\User\Models\User
      */
-    public function insert(string $firstName, string $lastName, string $username, string $email, integer $disabled, integer $isDriver)
+    public function insert($firstName = '', $lastName = '', $username = '', $email = '', $disabled = 0, $isDriver = 0, $accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
         $user = new User(0, $firstName, $lastName, $username, $email, $disabled, $isDriver);
         return $this->getMapper()->insert($user->toArray());
     }
@@ -68,12 +74,14 @@ class UserService extends \Modules\LibraryModule\AbstractService
      * @param string $lastName
      * @param string $username
      * @param string $email
-     * @param string $disabled
-     * @param string $isDriver
+     * @param integer $disabled
+     * @param integer $isDriver
+     * @param string $accessToken
      * @return \Modules\User\Models\User
      */
-    public function update(integer $id, string $firstName, string $lastName, string $username, string $email, integer $disabled, integer $isDriver)
+    public function update($id = 0, $firstName = '', $lastName = '', $username = '', $email = '', $disabled = 0, $isDriver = 0, $accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
         $user = new User($id, $firstName, $lastName, $username, $email, $disabled, $isDriver);
         return $this->getMapper()->update($id, $user->toArray());
     }
@@ -81,10 +89,12 @@ class UserService extends \Modules\LibraryModule\AbstractService
     /**
      * Delete user
      * @param integer $id
+     * @param string $accessToken
      * @return bool
      */
-    public function delete(integer $id)
+    public function delete($id = 0, $accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
         return $this->getMapper()->delete($id);
     }
 

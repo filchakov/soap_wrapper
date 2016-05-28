@@ -12,6 +12,7 @@ $app->get('/form-entries.wsdl', function() use ($app){
 
     $serverWSDL
         ->setClass('Modules\\FormEntries\\FormEntriesService')
+        ->setOperationBodyStyle(array('use' => 'literal'))
         ->setServiceName('FormEntries')
         ->setUri(WEBSERVICE_URL . FormEntriesMapper::URL);
 

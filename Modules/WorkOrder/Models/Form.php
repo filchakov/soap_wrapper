@@ -20,17 +20,17 @@ class Form implements ArraySerializable
     public $id = 0;
 
     /**
-     * @var object
+     * @var string
      */
     public $builder = null;
 
     /**
-     * @var object
+     * @var string
      */
     public $schema = null;
 
     /**
-     * @var object
+     * @var string
      */
     public $layout = null;
 
@@ -42,9 +42,9 @@ class Form implements ArraySerializable
     /**
      * Form constructor.
      * @param int $id
-     * @param object $builder
-     * @param object $schema
-     * @param object $layout
+     * @param string $builder
+     * @param string $schema
+     * @param string $layout
      * @param string $driveStatus
      */
     public function __construct($id, $builder, $schema, $layout, $driveStatus)

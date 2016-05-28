@@ -20,19 +20,19 @@ class Form implements ArraySerializable
     public $id = 0;
 
     /**
-     * @var object
+     * @var string
      */
-    public $builder = null;
+    public $builder = '';
 
     /**
-     * @var object
+     * @var string
      */
-    public $schema = null;
+    public $schema = '';
 
     /**
-     * @var object
+     * @var string
      */
-    public $layout = null;
+    public $layout = '';
 
     /**
      * @var string
@@ -42,9 +42,9 @@ class Form implements ArraySerializable
     /**
      * Form constructor.
      * @param int $id
-     * @param array $builder
-     * @param array $schema
-     * @param array $layout
+     * @param string $builder
+     * @param string $schema
+     * @param string $layout
      * @param string $driveStatus
      */
     public function __construct($id, $builder, $schema, $layout, $driveStatus)
@@ -76,7 +76,7 @@ class Form implements ArraySerializable
     }
 
     /**
-     * @return null
+     * @return array
      */
     public function getBuilder()
     {
@@ -84,17 +84,17 @@ class Form implements ArraySerializable
     }
 
     /**
-     * @param null $builder
+     * @param string $builder
      * @return Form
      */
     public function setBuilder($builder)
     {
-        $this->builder = $builder;
+        $this->builder = json_decode($builder, 1);
         return $this;
     }
 
     /**
-     * @return null
+     * @return array
      */
     public function getSchema()
     {
@@ -102,17 +102,17 @@ class Form implements ArraySerializable
     }
 
     /**
-     * @param null $schema
+     * @param string $schema
      * @return Form
      */
     public function setSchema($schema)
     {
-        $this->schema = $schema;
+        $this->schema = json_decode($schema, 1);
         return $this;
     }
 
     /**
-     * @return null
+     * @return array
      */
     public function getLayout()
     {
@@ -120,12 +120,12 @@ class Form implements ArraySerializable
     }
 
     /**
-     * @param null $layout
+     * @param string $layout
      * @return Form
      */
     public function setLayout($layout)
     {
-        $this->layout = $layout;
+        $this->layout = json_decode($layout, 1);
         return $this;
     }
 

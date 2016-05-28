@@ -12,6 +12,7 @@ $app->get('/customers.wsdl', function() use ($app){
 
     $serverWSDL
         ->setClass('Modules\\Customer\\CustomerService')
+        ->setOperationBodyStyle(array('use' => 'literal'))
         ->setServiceName('Customer')
         ->setUri(WEBSERVICE_URL . CustomerAddressMapper::URL);
 

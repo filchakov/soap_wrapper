@@ -13,6 +13,7 @@ $app->get('/work-orders.wsdl', function () use ($app) {
     $serverWSDL
         ->setClass('Modules\\WorkOrder\\WorkOrderService')
         ->setServiceName('WorkOrder')
+        ->setOperationBodyStyle(array('use' => 'literal'))
         ->setUri(WEBSERVICE_URL . WorkOrderMapper::URL);
 
     header('Content-type: application/xml; charset=utf-8');

@@ -54,11 +54,7 @@ abstract class EntityMapper implements IEntityAPI{
      */
     function get($id)
     {
-        if($id > 0){
-            return $this->sendRequest('GET', ['id' => $id]);
-        } else {
-            throw new SoapFault("404", "Not found entity with ID " . $id);
-        }
+        return $this->sendRequest('GET', ['id' => $id]);
     }
 
     /**
@@ -79,6 +75,7 @@ abstract class EntityMapper implements IEntityAPI{
      */
     function update($id, $options)
     {
+        $options['id'] = $id;
         return $this->sendRequest('PUT', $options);
     }
 
@@ -102,7 +99,7 @@ abstract class EntityMapper implements IEntityAPI{
 
         $this->checkToken();
 
-        if(isset($options['id']) && $options['id'] == 0){
+        if(isset($options['id']) && $options['id'] === 0){
             unset($options['id']);
         }
 

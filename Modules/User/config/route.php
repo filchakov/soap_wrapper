@@ -12,6 +12,7 @@ $app->get('/users.wsdl', function() use ($app){
 
     $serverWSDL
         ->setClass('Modules\\User\\UserService')
+        ->setOperationBodyStyle(array('use' => 'literal'))
         ->setServiceName('User')
         ->setUri(WEBSERVICE_URL . UserMapper::URL);
 

@@ -24,11 +24,14 @@ class WorkOrderService extends \Modules\LibraryModule\AbstractService
     /**
      * Show all work orders
      * @param string $status
+     * @param string $accessToken
      * @return \Modules\WorkOrder\Models\WorkOrderFullCollection
      * @throws \Exception
      */
-    public function show($status)
+    public function show($status, $accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
+
         $result = $this->getMapper()->setQueryParams(['status' => $status])->show();
 
         $collection = new WorkOrderFullCollection();
@@ -42,10 +45,13 @@ class WorkOrderService extends \Modules\LibraryModule\AbstractService
     /**
      * Show a single work order
      * @param integer $id
+     * @param string $accessToken
      * @return \Modules\WorkOrder\Models\WorkOrderFull
      */
-    public function get(integer $id)
+    public function get($id = 0, $accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
+
         $result = $this->getMapper()->get($id);
         return $this->getMapper()->buildObject($result);
     }
@@ -62,10 +68,13 @@ class WorkOrderService extends \Modules\LibraryModule\AbstractService
      * @param integer $duration
      * @param integer $driverId
      * @param string $expectedArrival
+     * @param string $accessToken
      * @return \Modules\WorkOrder\Models\WorkOrderFull
      */
-    public function insert(string $name, Customer $customer, Schedule $schedule, integer $templateId, string $comments, string $status, string $completedOn, integer $duration, integer $driverId, string $expectedArrival)
+    public function insert($name = '', Customer $customer, Schedule $schedule, $templateId = 0, $comments = '', $status = '', $completedOn = '', $duration = 0, $driverId = 0, $expectedArrival = '', $accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
+
         $workOrder = new WorkOrder(0, $name, $customer, $schedule, $templateId, $comments, $status, $completedOn, $duration, $driverId, $expectedArrival);
         $workOrderFull = $this->getMapper()->insert($workOrder->toArray());
         return $this->getMapper()->buildObject($workOrderFull);
@@ -84,10 +93,13 @@ class WorkOrderService extends \Modules\LibraryModule\AbstractService
      * @param integer $duration
      * @param integer $driverId
      * @param string $expectedArrival
+     * @param string $accessToken
      * @return \Modules\WorkOrder\Models\WorkOrderFull
      */
-    public function update(integer $id, string $name, Customer $customer, Schedule $schedule, integer $templateId, string $comments, string $status, string $completedOn, integer $duration, integer $driverId, string $expectedArrival)
+    public function update($id = 0, $name = '', Customer $customer, Schedule $schedule, $templateId = 0, $comments = '', $status = '', $completedOn = '', $duration = 0, $driverId = 0, $expectedArrival = '', $accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
+
         $workOrder = new WorkOrder($id, $name, $customer, $schedule, $templateId, $comments, $status, $completedOn, $duration, $driverId, $expectedArrival);
         $workOrderFull = $this->getMapper()->update($id, $workOrder->toArray());
         return $this->getMapper()->buildObject($workOrderFull);
@@ -96,10 +108,12 @@ class WorkOrderService extends \Modules\LibraryModule\AbstractService
     /**
      * Delete work order
      * @param integer $id
+     * @param string $accessToken
      * @return bool
      */
-    public function delete(integer $id)
+    public function delete($id = 0, $accessToken = '')
     {
+        $this->getMapper()->setAccessToken($accessToken);
         return $this->getMapper()->delete($id);
     }
 
