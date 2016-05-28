@@ -89,7 +89,7 @@ class Form implements ArraySerializable
      */
     public function setBuilder($builder)
     {
-        $this->builder = json_decode($builder, 1);
+        $this->builder = $builder;
         return $this;
     }
 
@@ -107,7 +107,7 @@ class Form implements ArraySerializable
      */
     public function setSchema($schema)
     {
-        $this->schema = json_decode($schema, 1);
+        $this->schema = $schema;
         return $this;
     }
 
@@ -125,7 +125,7 @@ class Form implements ArraySerializable
      */
     public function setLayout($layout)
     {
-        $this->layout = json_decode($layout, 1);
+        $this->layout = $layout;
         return $this;
     }
 

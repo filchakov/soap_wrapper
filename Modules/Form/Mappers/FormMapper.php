@@ -12,10 +12,6 @@ class FormMapper extends EntityMapper
         parent::__construct(self::URL);
     }
 
-    public function __encode($t) {
-        return json_encode($t);
-    }
-
     /**
      * @param array $objectData
      * @return \Modules\Form\Models\Form|\Modules\Form\Models\FormNullObject

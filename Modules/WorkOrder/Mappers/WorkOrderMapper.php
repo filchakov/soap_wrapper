@@ -10,7 +10,6 @@ use Modules\WorkOrder\Models\Form;
 use Modules\WorkOrder\Models\FormCollection;
 use Modules\WorkOrder\Models\Schedule;
 use Modules\WorkOrder\Models\Template;
-use \SimpleXMLElement;
 use Modules\WorkOrder\Models\WorkOrderFull;
 
 class WorkOrderMapper extends EntityMapper
@@ -21,28 +20,6 @@ class WorkOrderMapper extends EntityMapper
         parent::__construct(self::URL);
     }
 
-    public function array_to_xml($array, &$xml_user_info) {
-        foreach($array as $key => $value) {
-            if(is_array($value)) {
-                if(!is_numeric($key)){
-                    $subnode = $xml_user_info->addChild("$key");
-                    $this->array_to_xml($value, $subnode);
-                }else{
-                    $subnode = $xml_user_info->addChild("item");
-                    $this->array_to_xml($value, $subnode);
-                }
-            }else {
-                $xml_user_info->addChild("$key",htmlspecialchars("$value"));
-            }
-        }
-    }
-
-
-    public function __encode($t) {
-        $xml_user_info = new SimpleXMLElement("<root/>");
-        $this->array_to_xml($t, $xml_user_info);
-        return $xml_user_info->asXML();
-    }
     /**
      * @param array $objectData
      * @return \Modules\WorkOrder\Models\WorkOrderFull

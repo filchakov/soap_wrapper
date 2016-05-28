@@ -4,6 +4,7 @@ namespace Modules\LibraryModule\Entity;
 
 use Psr\Http\Message\ResponseInterface;
 use SoapFault;
+use \SimpleXMLElement;
 
 abstract class EntityMapper implements IEntityAPI{
 
@@ -227,6 +228,18 @@ abstract class EntityMapper implements IEntityAPI{
 
         $result = json_decode(curl_exec($curl), 1);
 
+        /*var_dump(REST_SERVER . $url);
+        echo 'options';
+        var_dump($options);
+
+        echo 'results';
+        var_dump($result);
+
+
+        var_dump($curl);
+
+        die;*/
+
         $this->handlerException($result, curl_getinfo($curl));
 
         curl_close($curl);
@@ -304,6 +317,29 @@ abstract class EntityMapper implements IEntityAPI{
         }
 
         return $result;
+    }
+
+    protected function array_to_xml($array, &$xml_user_info) {
+        foreach($array as $key => $value) {
+            if(is_array($value)) {
+                if(!is_numeric($key)){
+                    $subnode = $xml_user_info->addChild("$key");
+                    $this->array_to_xml($value, $subnode);
+                }else{
+                    $subnode = $xml_user_info->addChild("item");
+                    $this->array_to_xml($value, $subnode);
+                }
+            }else {
+                $xml_user_info->addChild("$key",htmlspecialchars("$value"));
+            }
+        }
+    }
+
+
+    protected function __encode($t) {
+        $xml_user_info = new SimpleXMLElement("<root/>");
+        $this->array_to_xml($t, $xml_user_info);
+        return $xml_user_info->asXML();
     }
 
 }

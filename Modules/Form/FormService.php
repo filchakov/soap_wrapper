@@ -32,6 +32,10 @@ class FormService extends \Modules\LibraryModule\AbstractService
 
         $collection = new FormCollection();
         foreach ($result as $key => $item) {
+            /*var_dump($item);
+            var_dump($this->getMapper()->buildObject($item));
+            die;*/
+
             $collection->addItem($this->getMapper()->buildObject($item), $key);
         }
 
