@@ -3,6 +3,7 @@
 namespace Modules\WorkOrder;
 
 
+use Modules\Customer\CustomerService;
 use Modules\Customer\Models\Customer;
 use Modules\WorkOrder\Mappers\WorkOrderMapper;
 use Modules\WorkOrder\Models\Schedule;
@@ -25,7 +26,7 @@ class WorkOrderService extends \Modules\LibraryModule\AbstractService
      * Show all work orders
      * @param string $status
      * @param string $accessToken
-     * @return \Modules\WorkOrder\Models\WorkOrderFullCollection
+     * @return \Modules\WorkOrder\Models\WorkOrderFull[]
      * @throws \Exception
      */
     public function show($status, $accessToken = '')
@@ -38,8 +39,7 @@ class WorkOrderService extends \Modules\LibraryModule\AbstractService
         foreach ($result as $key => $item) {
             $collection->addItem($this->getMapper()->buildObject($item), $key);
         }
-
-        return $collection;
+        return $collection->get();
     }
 
     /**
@@ -59,8 +59,10 @@ class WorkOrderService extends \Modules\LibraryModule\AbstractService
     /**
      * Insert new work order
      * @param string $name
-     * @param \Modules\Customer\Models\Customer $customer
-     * @param \Modules\WorkOrder\Models\Schedule $schedule
+     * @param integer $customerID
+     * @param string $scheduleDate
+     * @param string $scheduleFrom
+     * @param string $scheduleTo
      * @param integer $templateId
      * @param string $comments
      * @param string $status
@@ -71,11 +73,15 @@ class WorkOrderService extends \Modules\LibraryModule\AbstractService
      * @param string $accessToken
      * @return \Modules\WorkOrder\Models\WorkOrderFull
      */
-    public function insert($name = '', Customer $customer, Schedule $schedule, $templateId = 0, $comments = '', $status = '', $completedOn = '', $duration = 0, $driverId = 0, $expectedArrival = '', $accessToken = '')
+    public function insert($name = '', $customerID = 0, $scheduleDate, $scheduleFrom, $scheduleTo, $templateId = 0, $comments = '', $status = '', $completedOn = '', $duration = 0, $driverId = 0, $expectedArrival = '', $accessToken = '')
     {
+
         $this->getMapper()->setAccessToken($accessToken);
 
-        $workOrder = new WorkOrder(0, $name, $customer, $schedule, $templateId, $comments, $status, $completedOn, $duration, $driverId, $expectedArrival);
+        $schedule = new Schedule($scheduleDate, $scheduleFrom, $scheduleTo);
+
+
+        $workOrder = new WorkOrder(0, $name, $customerID, $schedule, $templateId, $comments, $status, $completedOn, $duration, $driverId, $expectedArrival);
         $workOrderFull = $this->getMapper()->insert($workOrder->toArray());
         return $this->getMapper()->buildObject($workOrderFull);
     }
@@ -84,8 +90,10 @@ class WorkOrderService extends \Modules\LibraryModule\AbstractService
      * Update work order
      * @param integer $id
      * @param string $name
-     * @param \Modules\Customer\Models\Customer $customer
-     * @param \Modules\WorkOrder\Models\Schedule $schedule
+     * @param integer $customerID
+     * @param string $scheduleDate
+     * @param string $scheduleFrom
+     * @param string $scheduleTo
      * @param integer $templateId
      * @param string $comments
      * @param string $status
@@ -96,11 +104,13 @@ class WorkOrderService extends \Modules\LibraryModule\AbstractService
      * @param string $accessToken
      * @return \Modules\WorkOrder\Models\WorkOrderFull
      */
-    public function update($id = 0, $name = '', Customer $customer, Schedule $schedule, $templateId = 0, $comments = '', $status = '', $completedOn = '', $duration = 0, $driverId = 0, $expectedArrival = '', $accessToken = '')
+    public function update($id = 0, $name = '', $customerID = 0, $scheduleDate, $scheduleFrom, $scheduleTo, $templateId = 0, $comments = '', $status = '', $completedOn = '', $duration = 0, $driverId = 0, $expectedArrival = '', $accessToken = '')
     {
         $this->getMapper()->setAccessToken($accessToken);
 
-        $workOrder = new WorkOrder($id, $name, $customer, $schedule, $templateId, $comments, $status, $completedOn, $duration, $driverId, $expectedArrival);
+        $schedule = new Schedule($scheduleDate, $scheduleFrom, $scheduleTo);
+
+        $workOrder = new WorkOrder($id, $name, $customerID, $schedule, $templateId, $comments, $status, $completedOn, $duration, $driverId, $expectedArrival);
         $workOrderFull = $this->getMapper()->update($id, $workOrder->toArray());
         return $this->getMapper()->buildObject($workOrderFull);
     }

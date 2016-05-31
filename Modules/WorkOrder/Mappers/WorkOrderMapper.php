@@ -101,7 +101,8 @@ class WorkOrderMapper extends EntityMapper
             $objectData[WorkOrderFull::DRIVER_ID],
             $this->__encode($objectData[WorkOrderFull::FORM_ENTRIES]),
             $objectData[WorkOrderFull::COMPLETED_ON],
-            $objectData[WorkOrderFull::EXCEPTED_ARRIVAL]
+            $objectData[WorkOrderFull::EXCEPTED_ARRIVAL],
+            $objectData[WorkOrderFull::LAST_ACCESSED]
         );
     }
 }

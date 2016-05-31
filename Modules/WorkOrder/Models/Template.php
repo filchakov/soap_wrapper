@@ -23,17 +23,12 @@ class Template implements ArraySerializable
     public $name = '';
 
     /**
-     * @var \Modules\WorkOrder\Models\FormCollection
-     */
-    public $forms = null;
-
-    /**
      * Template constructor.
      * @param int $id
      * @param string $name
      * @param FormCollection $forms
      */
-    public function __construct($id, $name, FormCollection $forms)
+    public function __construct($id, $name, $forms)
     {
         $this
             ->setId($id)

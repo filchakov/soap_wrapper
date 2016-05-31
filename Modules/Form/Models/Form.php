@@ -160,4 +160,25 @@ class Form implements ArraySerializable
             self::DRIVE_STATUS => $this->getDriveStatus(),
         ];
     }
+
+    /**
+     * Convert data for API
+     * @return array
+     */
+    public function toArrayAPI()
+    {
+        return [
+            self::ID => $this->getId(),
+            self::BUILDER => $this->convertXmltoArray($this->getBuilder()),
+            self::SCHEMA => $this->convertXmltoArray($this->getSchema()),
+            self::LAYOUT => $this->convertXmltoArray($this->getLayout()),
+            self::DRIVE_STATUS => $this->getDriveStatus(),
+        ];
+    }
+
+    private function convertXmltoArray($xml = ''){
+        return (array) simplexml_load_string($xml, "SimpleXMLElement", LIBXML_NOCDATA);
+    }
+
+
 }

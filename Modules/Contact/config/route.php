@@ -12,6 +12,20 @@ $app->get('/contacts.wsdl', function() use ($app){
 
     $serverWSDL
         ->setClass('Modules\\Contact\\ContactService')
+        ->setServiceName('Contact')
+        ->setUri(WEBSERVICE_URL . ContactMapper::URL);
+
+    header('Content-type: application/xml; charset=utf-8');
+    echo $serverWSDL->toXml();
+    die;
+});
+
+$app->get('/literal/contacts.wsdl', function() use ($app){
+
+    $serverWSDL = new AutoDiscover(new ArrayOfTypeSequence());
+
+    $serverWSDL
+        ->setClass('Modules\\Contact\\ContactService')
         ->setOperationBodyStyle(array('use' => 'literal'))
         ->setServiceName('Contact')
         ->setUri(WEBSERVICE_URL . ContactMapper::URL);

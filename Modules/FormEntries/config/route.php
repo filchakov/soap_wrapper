@@ -6,7 +6,7 @@ use Zend\Soap\AutoDiscover;
 
 use Zend\Soap\Wsdl\ComplexTypeStrategy\ArrayOfTypeSequence;
 
-$app->get('/form-entries.wsdl', function() use ($app){
+$app->get('/literal/form-entries.wsdl', function() use ($app){
 
     $serverWSDL = new AutoDiscover(new ArrayOfTypeSequence());
 
@@ -21,6 +21,19 @@ $app->get('/form-entries.wsdl', function() use ($app){
     die;
 });
 
+$app->get('/form-entries.wsdl', function() use ($app){
+
+    $serverWSDL = new AutoDiscover(new ArrayOfTypeSequence());
+
+    $serverWSDL
+        ->setClass('Modules\\FormEntries\\FormEntriesService')
+        ->setServiceName('FormEntries')
+        ->setUri(WEBSERVICE_URL . FormEntriesMapper::URL);
+
+    header('Content-type: application/xml; charset=utf-8');
+    echo $serverWSDL->toXml();
+    die;
+});
 
 $app->post('/form-entries',function() use ($app){
 

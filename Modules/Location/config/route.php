@@ -6,13 +6,27 @@ use Modules\Location\Mappers\LocationMapper;
 
 use Zend\Soap\Wsdl\ComplexTypeStrategy\ArrayOfTypeSequence;
 
-$app->get('/locations.wsdl', function () use ($app) {
+$app->get('/literal/locations.wsdl', function () use ($app) {
 
     $serverWSDL = new AutoDiscover(new ArrayOfTypeSequence());
 
     $serverWSDL
         ->setClass('Modules\\Location\\LocationService')
         ->setOperationBodyStyle(array('use' => 'literal'))
+        ->setServiceName('Location')
+        ->setUri(WEBSERVICE_URL . LocationMapper::URL);
+
+    header('Content-type: application/xml; charset=utf-8');
+    echo $serverWSDL->toXml();
+    die;
+});
+
+$app->get('/locations.wsdl', function () use ($app) {
+
+    $serverWSDL = new AutoDiscover(new ArrayOfTypeSequence());
+
+    $serverWSDL
+        ->setClass('Modules\\Location\\LocationService')
         ->setServiceName('Location')
         ->setUri(WEBSERVICE_URL . LocationMapper::URL);
 

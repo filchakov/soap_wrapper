@@ -81,7 +81,7 @@ class WorkOrder implements ArraySerializable
      * WorkOrder constructor.
      * @param int $id
      * @param string $name
-     * @param \Modules\Customer\Models\Customer $customer
+     * @param int $customer
      * @param \Modules\WorkOrder\Models\Schedule $schedule
      * @param int $templateId
      * @param string $comments
@@ -91,7 +91,7 @@ class WorkOrder implements ArraySerializable
      * @param int $driverId
      * @param string $expectedArrival
      */
-    public function __construct($id, $name, Customer $customer, Schedule $schedule, $templateId, $comments, $status, $completedOn, $duration, $driverId, $expectedArrival)
+    public function __construct($id, $name, $customer, Schedule $schedule, $templateId, $comments, $status, $completedOn, $duration, $driverId, $expectedArrival)
     {
         $this
             ->setId($id)
@@ -145,7 +145,7 @@ class WorkOrder implements ArraySerializable
     }
 
     /**
-     * @return \Modules\Customer\Models\Customer
+     * @return integer
      */
     public function getCustomer()
     {
@@ -153,7 +153,7 @@ class WorkOrder implements ArraySerializable
     }
 
     /**
-     * @param Customer $customer
+     * @param integer $customer
      * @return WorkOrder
      */
     public function setCustomer($customer)
@@ -315,7 +315,7 @@ class WorkOrder implements ArraySerializable
         return [
             self::ID => $this->getId(),
             self::NAME => $this->getName(),
-            self::CUSTOMER => $this->getCustomer(),
+            self::CUSTOMER => ['id' => $this->getCustomer()],
             self::SCHEDULE => $this->getSchedule(),
             self::TEMPLATE_ID => $this->getTemplateId(),
             self::COMMENTS => $this->getComments(),

@@ -10,7 +10,7 @@ class WorkOrderFullNullObject extends WorkOrderFull
         parent::__construct(
             0, [], new CustomerAddressNullObject(), new ScheduleNullObject(), 0,
             new TemplateNullObject(), null, 0, 0, new FormNullObject(), null,
-            '', null, null, '', '', '', null, 0, 0, 0
+            '', null, null, '', '', '', null, 0, 0, 0, ''
         );
     }
 

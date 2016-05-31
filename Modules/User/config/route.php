@@ -6,7 +6,7 @@ use Modules\User\Mappers\UserMapper;
 
 use Zend\Soap\Wsdl\ComplexTypeStrategy\ArrayOfTypeSequence;
 
-$app->get('/users.wsdl', function() use ($app){
+$app->get('/literal/users.wsdl', function() use ($app){
 
     $serverWSDL = new AutoDiscover(new ArrayOfTypeSequence());
 
@@ -21,6 +21,19 @@ $app->get('/users.wsdl', function() use ($app){
     die;
 });
 
+$app->get('/users.wsdl', function() use ($app){
+
+    $serverWSDL = new AutoDiscover(new ArrayOfTypeSequence());
+
+    $serverWSDL
+        ->setClass('Modules\\User\\UserService')
+        ->setServiceName('User')
+        ->setUri(WEBSERVICE_URL . UserMapper::URL);
+
+    header('Content-type: application/xml; charset=utf-8');
+    echo $serverWSDL->toXml();
+    die;
+});
 
 $app->post('/users',function() use ($app){
 

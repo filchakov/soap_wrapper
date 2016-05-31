@@ -1,13 +1,13 @@
 <?php
 
-namespace Modules\Contact\Models;
+namespace Modules\User\Models;
 
-class ContactNullObject extends Contact
+class UserNullObject extends User
 {
 
     public function __construct()
     {
-        parent::__construct(0, '','','','', '', '');
+        parent::__construct(0, '', '', '', '', '', '');
     }
 
     /**

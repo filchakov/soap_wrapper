@@ -13,6 +13,20 @@ $app->get('/work-orders.wsdl', function () use ($app) {
     $serverWSDL
         ->setClass('Modules\\WorkOrder\\WorkOrderService')
         ->setServiceName('WorkOrder')
+        ->setUri(WEBSERVICE_URL . WorkOrderMapper::URL);
+
+    header('Content-type: application/xml; charset=utf-8');
+    echo $serverWSDL->toXml();
+    die;
+});
+
+$app->get('/literal/work-orders.wsdl', function () use ($app) {
+
+    $serverWSDL = new AutoDiscover(new ArrayOfTypeSequence());
+
+    $serverWSDL
+        ->setClass('Modules\\WorkOrder\\WorkOrderService')
+        ->setServiceName('WorkOrder')
         ->setOperationBodyStyle(array('use' => 'literal'))
         ->setUri(WEBSERVICE_URL . WorkOrderMapper::URL);
 

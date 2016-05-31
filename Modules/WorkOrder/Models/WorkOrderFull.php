@@ -31,6 +31,7 @@ class WorkOrderFull implements ArraySerializable
     const FORM_ENTRIES = 'formEntries';
     const COMPLETED_ON = 'completedOn';
     const EXCEPTED_ARRIVAL = 'expectedArrival';
+    const LAST_ACCESSED = 'lastAccessed';
 
     /**
      * @var int
@@ -38,9 +39,9 @@ class WorkOrderFull implements ArraySerializable
     public $id = 0;
 
     /**
-     * @var object
+     * @var string
      */
-    public $groups = [];
+    public $groups = '';
 
     /**
      * @var \Modules\Customer\Models\CustomerAddress
@@ -65,9 +66,9 @@ class WorkOrderFull implements ArraySerializable
 
 
     /**
-     * @var object
+     * @var string
      */
-    public $templateEntries = [];
+    public $templateEntries = '';
 
     /**
      * @var int
@@ -85,9 +86,9 @@ class WorkOrderFull implements ArraySerializable
     public $form = [];
 
     /**
-     * @var object
+     * @var string
      */
-    public $formEntry = [];
+    public $formEntry = '';
 
     /**
      * @var string
@@ -95,14 +96,14 @@ class WorkOrderFull implements ArraySerializable
     public $formName = '';
 
     /**
-     * @var object
+     * @var string
      */
-    public $products = [];
+    public $products = '';
 
     /**
      * @var int
      */
-    public $routeId = [];
+    public $routeId = '';
 
     /**
      * @var string
@@ -120,9 +121,9 @@ class WorkOrderFull implements ArraySerializable
     public $status = '';
 
     /**
-     * @var object
+     * @var string
      */
-    public $delivered = [];
+    public $delivered = '';
 
     /**
      * @var int
@@ -145,40 +146,46 @@ class WorkOrderFull implements ArraySerializable
     public $expectedArrival = '';
 
     /**
-     * @var object
+     * @var string
      */
-    public $formEntries = [];
+    public $formEntries = '';
+
+    /**
+     * @var string
+     */
+    public $lastAccessed = '';
 
     /**
      * WorkOrder constructor.
      * @param int $id
-     * @param array $groups
+     * @param string $groups
      * @param \Modules\Customer\Models\CustomerAddress $customer
      * @param \Modules\WorkOrder\Models\Schedule $schedule
      * @param int $templateId
      * @param \Modules\WorkOrder\Models\Template $template
-     * @param array $templateEntries
+     * @param string $templateEntries
      * @param int $formId
      * @param int $formEntryId
      * @param Form $form
-     * @param array $formEntry
+     * @param string $formEntry
      * @param string $formName
-     * @param array $products
+     * @param string $products
      * @param int $routeId
      * @param string $name
      * @param string $comments
      * @param string $status
-     * @param array $delivered
+     * @param string $delivered
      * @param int $duration
      * @param int $driverId
-     * @param array $formEntries
+     * @param string $formEntries
      * @param string $completedOn
      * @param string $expectedArrival
+     * @param string $lastAccessed
      */
-    public function __construct($id, array $groups, CustomerAddress $customer, Schedule $schedule, $templateId,
+    public function __construct($id, $groups, CustomerAddress $customer, Schedule $schedule, $templateId,
                                 Template $template, $templateEntries, $formId, $formEntryId, Form $form, $formEntry,
                                 $formName, $products, $routeId, $name, $comments, $status, $delivered, $duration, $driverId, $formEntries,
-                                $completedOn, $expectedArrival)
+                                $completedOn, $expectedArrival, $lastAccessed)
     {
         $this
             ->setId($id)
@@ -205,7 +212,8 @@ class WorkOrderFull implements ArraySerializable
             ->setDriverId($driverId)
             ->setFormEntries($formEntries)
             ->setCompletedOn($completedOn)
-            ->setExpectedArrival($expectedArrival);
+            ->setExpectedArrival($expectedArrival)
+            ->setLastAccessed($lastAccessed);
     }
 
 
@@ -228,7 +236,7 @@ class WorkOrderFull implements ArraySerializable
     }
 
     /**
-     * @return array
+     * @return string
      */
     public function getGroups()
     {
@@ -236,7 +244,7 @@ class WorkOrderFull implements ArraySerializable
     }
 
     /**
-     * @param array $groups
+     * @param string $groups
      * @return $this
      */
     public function setGroups($groups)
@@ -326,7 +334,7 @@ class WorkOrderFull implements ArraySerializable
     }
 
     /**
-     * @param array $templateEntries
+     * @param string $templateEntries
      * @return $this
      */
     public function setTemplateEntries($templateEntries)
@@ -398,7 +406,7 @@ class WorkOrderFull implements ArraySerializable
     }
 
     /**
-     * @param array $formEntry
+     * @param string $formEntry
      * @return $this
      */
     public function setFormEntry($formEntry)
@@ -434,7 +442,7 @@ class WorkOrderFull implements ArraySerializable
     }
 
     /**
-     * @param array $products
+     * @param string $products
      * @return $this
      */
     public function setProducts($products)
@@ -524,7 +532,7 @@ class WorkOrderFull implements ArraySerializable
     }
 
     /**
-     * @param array $delivered
+     * @param string $delivered
      * @return $this
      */
     public function setDelivered($delivered)
@@ -578,7 +586,7 @@ class WorkOrderFull implements ArraySerializable
     }
 
     /**
-     * @param array $formEntries
+     * @param string $formEntries
      * @return $this
      */
     public function setFormEntries($formEntries)
@@ -623,7 +631,23 @@ class WorkOrderFull implements ArraySerializable
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getLastAccessed()
+    {
+        return $this->lastAccessed;
+    }
 
+    /**
+     * @param string $lastAccessed
+     * @return WorkOrderFull
+     */
+    public function setLastAccessed($lastAccessed)
+    {
+        $this->lastAccessed = $lastAccessed;
+        return $this;
+    }
 
     /**
      * @return array
@@ -652,7 +676,8 @@ class WorkOrderFull implements ArraySerializable
             self::DRIVER_ID => $this->getDriverId(),
             self::FORM_ENTRIES => $this->getFormEntries(),
             self::COMPLETED_ON => $this->getCompletedOn(),
-            self::EXCEPTED_ARRIVAL => $this->getExpectedArrival()
+            self::EXCEPTED_ARRIVAL => $this->getExpectedArrival(),
+            self::LAST_ACCESSED => $this->getLastAccessed()
         ];
     }
 }

@@ -32,11 +32,8 @@ class FormService extends \Modules\LibraryModule\AbstractService
 
         $collection = new FormCollection();
         foreach ($result as $key => $item) {
-            /*var_dump($item);
-            var_dump($this->getMapper()->buildObject($item));
-            die;*/
 
-            $collection->addItem($this->getMapper()->buildObject($item), $key);
+            $collection->addItem($this->getMapper()->buildObjectToSOAP($item), $key);
         }
 
         return $collection;
@@ -51,7 +48,7 @@ class FormService extends \Modules\LibraryModule\AbstractService
     public function get($id = 0, $accessToken = '')
     {
         $this->getMapper()->setAccessToken($accessToken);
-        return $this->getMapper()->buildObject($this->getMapper()->get($id));
+        return $this->getMapper()->buildObjectToSOAP($this->getMapper()->get($id));
     }
 
     /**
@@ -67,7 +64,7 @@ class FormService extends \Modules\LibraryModule\AbstractService
     {
         $this->getMapper()->setAccessToken($accessToken);
         $contact = new Form(0, $builder, $schema, $layout, $driveStatus);
-        return $this->getMapper()->insert($contact->toArray());
+        return $this->getMapper()->insert($contact->toArrayAPI());
     }
 
     /**

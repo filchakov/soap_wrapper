@@ -66,7 +66,9 @@ class CustomerService extends \Modules\LibraryModule\AbstractService
     public function insert($name = '', $shippingID = 0, $billingID = 0, $mainContactID = 0, $accessToken = '')
     {
         $this->getMapper()->setAccessToken($accessToken);
-        return $this->getMapper()->insert(compact('name', 'shippingID', 'billingID', 'mainContactID'));
+
+        $result = $this->getMapper()->insert(compact('name', 'shippingID', 'billingID', 'mainContactID'));
+        return $this->getMapper()->buildObject($result);
     }
 
     /**

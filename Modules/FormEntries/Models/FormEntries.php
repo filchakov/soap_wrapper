@@ -105,4 +105,15 @@ class FormEntries implements ArraySerializable
             self::ENTRY => $this->getEntry()
         ];
     }
+
+    /**
+     * @return array
+     */
+    public function toWSDL(){
+        return [
+            self::ID => $this->getId(),
+            self::FORM_ID => $this->getFormId(),
+            self::ENTRY => $this->getEntry()
+        ];
+    }
 }

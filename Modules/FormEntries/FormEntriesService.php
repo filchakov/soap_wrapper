@@ -21,13 +21,16 @@ class FormEntriesService extends \Modules\LibraryModule\AbstractService
 
     /**
      * Show all form-entries
+     * @param string $lastDate
      * @param string $accessToken
      * @return \Modules\FormEntries\Models\FormEntriesCollection
      */
-    public function show($accessToken = '')
+    public function show($lastDate = '', $accessToken = '')
     {
         $this->getMapper()->setAccessToken($accessToken);
-        $result = $this->getMapper()->show();
+
+        $result = $this->getMapper()->setQueryParams(['lastDate' => $lastDate])->show();
+
         $collection = new FormEntriesCollection();
         foreach ($result as $key => $item) {
             $collection->addItem($this->getMapper()->buildObject($item), $key);
